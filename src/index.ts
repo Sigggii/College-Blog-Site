@@ -6,9 +6,10 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 app.get('/', (req: Request, res: Response) => {
-  res.render('index');
+  res.render('pages/index');
 });
 
 app.listen(port, () => {

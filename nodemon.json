@@ -1,5 +1,8 @@
 {
   "watch": ["src"],
   "ext": "ts",
-  "exec": "concurrently \"npx tsc --watch\" \"ts-node src/index.ts\""
+  "exec": "concurrently \"npx tsc --watch\" \"ts-node src/index.ts\" \"npm run tailwind:css\"",
+  "events": {
+    "restart": "npm run tailwind:css"
+  }
 }
