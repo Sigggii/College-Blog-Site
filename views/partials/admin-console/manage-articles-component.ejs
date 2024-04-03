@@ -1,0 +1,38 @@
+<section class="p-5">
+    <h1 class="w-full text-3xl font-medium leading-10 text-primary max-md:max-w-full">Manage Articles</h1>
+    <hr class="my-2 w-full bg-black border border-black border-solid min-h-[1px] max-md:max-w-full"/>
+    <section id="manage-articles-container" class="flex flex-col gap-10">
+        <section id="all-articles-container" class="flex flex-wrap gap-4">
+            <!-- Modified from here https://flowbite.com/docs/forms/select/ -->
+            <div class="mt-6">
+                <label for="articles" class="mb-1 text-md font-medium text-secondary">Select an Article</label>
+                <select id="articles"
+                        class="bg-white border border-secondary text-secondary text-xl rounded-lg focus:ring-primary focus:border-primary block p-4">
+                    <option selected>Choose a Article</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <div class="self-end flex gap-2">
+                <button class="text-xl justify-center px-6 py-4 whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5">
+                    Edit
+                </button>
+                <button class="text-xl justify-center px-6 py-4 text-white whitespace-nowrap bg-orange-600 rounded-lg shadow-sm max-md:px-5">
+                    Delete
+                </button>
+            </div>
+        </section>
+        <section id="manage-recent-articles-container" >
+            <h1 class="text-2xl font-bold mb-4 ">Recent Posts (Last 24 hours)</h1>
+            <section id="recent-articles-container" class="flex flex-col gap-5 h-[900px] overflow-auto w-fit p-4 border-solid border-secondary border-2" >
+                <%- include('./article-component') %>
+                <%- include('./article-component') %>
+                <%- include('./article-component') %>
+                <%- include('./article-component') %>
+                <%- include('./article-component') %>
+            </section>
+        </section>
+    </section>
+</section>

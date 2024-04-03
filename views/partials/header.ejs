@@ -1,12 +1,47 @@
-<header class="flex gap-5 justify-between px-16 py-9 font-medium bg-white border-b-2 border-yellow-400 border-solid leading-[150%] max-md:flex-wrap max-md:px-5">
-    <div class="flex gap-5 text-2xl text-yellow-400">
-        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/31582a5c5225748c02be6b444367f64c669c5468aa5fae16c4fa5a3da05b2720?apiKey=c26f5b0fc9d64e98831a49207aa49ae6&" alt="Curvy Roads logo" class="shrink-0 border border-black border-solid aspect-[0.91] w-[82px]" />
+<script src="./js/header.js"></script>
+<header class="flex justify-between px-10 py-4 font-medium bg-white border-b-2 border-primary border-solid leading-[150%] max-md:flex-wrap max-md:px-5 mb-5">
+    <a href="/" class="cursor-pointer flex gap-6 text-2xl text-primary">
+        <img src="./assets/curvy-road.png" alt="Curvy Roads logo" class="shrink-0 aspect-[0.91] w-[60px]"/>
         <h1 class="flex-auto my-auto">Curvy Roads</h1>
-    </div>
-    <nav class="flex gap-5 items-center my-auto text-xl text-black max-md:flex-wrap">
+    </a>
+    <nav class="max-md:hidden flex gap-8 items-center my-auto text-md text-black max-md:flex-wrap">
         <a href="#" class="self-stretch my-auto">Posts</a>
         <a href="#" class="self-stretch my-auto">Create Post</a>
         <a href="#" class="self-stretch my-auto">Admin Console</a>
-        <a href="#" class="justify-center self-stretch px-6 py-3.5 text-base whitespace-nowrap bg-yellow-400 rounded-lg shadow-sm max-md:px-5">Login</a>
+        <a href="/signin"
+           class="justify-center self-stretch px-6 py-3.5 text-base whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5">Login</a>
     </nav>
+    <div class="md:hidden flex items-center">
+        <button id="menu-btn" class="focus:outline-none" onclick="handleOpenMenu()">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+            </svg>
+        </button>
+
+        <div id="drawer"
+             class="fixed inset-0 z-50 bg-secondary bg-opacity-90 hidden overflow-y-auto px-4 py-8 flex justify-center">
+            <button onclick="handleCloseMenu()" id="close-drawer-btn"
+                    class="absolute top-4 right-4 focus:outline-none text-white hover:text-gray-200">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"></path>
+                </svg>
+            </button>
+            <nav>
+                <ul class="text-white text-2xl space-y-4">
+                    <li><a href="#" class="hover:text-primary hover:underline underline-offset-4 flex justify-center">Posts
+                            </a></li>
+                    <li><a href="#" class="hover:text-primary hover:underline underline-offset-4 flex justify-center">Create Post
+                            </a></li>
+                    <li><a href="#" class="hover:text-primary hover:underline underline-offset-4 flex justify-center">Admin Console
+                            </a></li>
+                </ul>
+                <div class="mt-6 flex justify-center">
+                    <a href="/signin"
+                       class=" justify-center self-stretch px-6 py-3.5 text-base whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5">Login</a>
+                </div>
+            </nav>
+        </div>
+    </div>
 </header>
