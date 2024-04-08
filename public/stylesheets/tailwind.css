@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    span[contenteditable]:empty:not(:focus):before {
+        content: attr(data-placeholder);
+        color: grey;
+    }
+}

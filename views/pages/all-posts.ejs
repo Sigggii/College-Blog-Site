@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head'); %>
+<body>
+<%- include('../partials/header') %>
+<section class="flex flex-col p-5 mx-auto w-full bg-white max-w-[600px]">
+    <section class="flex flex-col px-6 w-full text-xl text-black">
+        <div class="flex justify-between gap-0 self-start ml-3.5 text-4xl py-1">
+            <h1 class="self-end">All Blog Posts</h1>
+            <img src="./assets/motorcycle.svg"
+                 alt="Decorative image" class="self-end w-[15%] -rotate-[30deg]"/>
+        </div>
+    </section>
+    <section id="filter-container" class="mt-4">
+        <%- include('../partials/all-posts/post-filter-component') %>
+    </section>
+    <section id="posts-container">
+        <%- include('../partials/general/post-preview-component') %>
+        <%- include('../partials/general/post-preview-component') %>
+    </section>
+    <%- include('../partials/all-posts/post-pagination-component') %>
+</section>
+</body>
+</html>

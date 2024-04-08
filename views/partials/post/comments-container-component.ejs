@@ -1,0 +1,23 @@
+<section class="w-full mt-8 flex flex-col justify-center">
+    <form class="w-full flex flex-col">
+        <label for="comment" class="sr-only">Write comment</label>
+        <span id="comment"
+              contenteditable="true"
+              data-placeholder="Write comment..."
+              oninput="if(this.innerHTML.trim()==='<br>')this.innerHTML=''"
+              class="py-1 resize-none focus:outline-none justify-center text-sm text-black border-b border-primary border-solid"></span>
+        <button type="submit"
+                class="justify-center self-end px-3.5 py-2 mt-1.5 text-sm font-medium leading-5 text-black whitespace-nowrap bg-primary rounded-lg shadow-sm">
+            Comment
+        </button>
+    </form>
+    <script>
+
+    </script>
+    <section class="flex flex-col gap-7">
+        <%- include('./comment-component') %>
+        <%- include('./comment-component') %>
+        <%- include('./comment-component') %>
+    </section>
+
+</section>

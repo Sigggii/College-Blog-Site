@@ -1,9 +1,17 @@
 //Opens the Drawer Element of the App-Bar
 const handleOpenMenu = () => {
-  document.getElementById('drawer').classList.remove('hidden');
-};
+  document.getElementById('drawer').classList.remove('hidden')
+}
 
 //Closes the Drawer Element of the App-Bar
 const handleCloseMenu = () => {
-  document.getElementById('drawer').classList.add('hidden');
-};
+  document.getElementById('drawer').classList.add('hidden')
+}
+
+const onLogout = () => {
+  signOut()
+}
+
+const onLogin = () => {
+  window.location.assign('/signin')
+}
