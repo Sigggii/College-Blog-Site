@@ -7,8 +7,8 @@ import { UserController } from '../../controller/userController'
 export const authentication =
   (restrictedRoutes: string[]) => async (req: Request, res: Response, next: NextFunction) => {
     if (!(jwt_identifier in req.cookies)) {
+      res.locals.loggedIn = false
       if (restrictedRoutes.includes(req.path)) {
-        res.locals.loggedIn = false
         return res.status(401).redirect('/signin')
       }
       return next()
