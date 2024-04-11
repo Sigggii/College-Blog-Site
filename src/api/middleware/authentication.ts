@@ -90,6 +90,6 @@ const authorize = (securedRoute: SecuredRoute, user: User) => {
  *
  */
 const isSecuredRoute = (givenPath: string, actualPath: string) => {
-  const regex = new RegExp(`^givenPath$`)
+  const regex = new RegExp(`^${givenPath}$`)
   return regex.test(actualPath)
 }

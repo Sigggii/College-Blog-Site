@@ -1218,17 +1218,9 @@ span[contenteditable]:empty:not(:focus):before {
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
-.focus\:border-primary:focus {
-  --tw-border-opacity: 1;
-  border-color: rgb(250 204 21 / var(--tw-border-opacity));
-}
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-}
-.focus\:ring-primary:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(250 204 21 / var(--tw-ring-opacity));
 }
 @media not all and (min-width: 768px) {
 

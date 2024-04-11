@@ -1,4 +1,4 @@
-import { AddComment, CreatePost } from './types'
+import { AddComment, CreatePost, PostWithAuthor, PostWithAuthorAndCommentAuthor } from './types'
 import { PostModel } from '../model/post'
 import { Post, Role, User } from '../model/types'
 import { BlogSiteError } from '../api/middleware/BlogSiteError'
@@ -20,12 +20,14 @@ export type PostFilter = {
 
 type PostContoller = {
   createPost: (post: CreatePost) => Promise<Types.ObjectId>
-  getPost: (postID: string) => Promise<Post>
+  getPost: (postID: string) => Promise<PostWithAuthorAndCommentAuthor>
+  deletePost: (postId: string, requestUser: User) => Promise<void>
   addComment: (comment: AddComment) => Promise<void>
   updateComment: (commentId: string, content: string, requestUser: User) => Promise<void>
   deleteComment: (commentId: string, requestUser: User) => Promise<void>
-  getResentPosts: (number: number) => Promise<Post[]>
-  getFilteredPosts: (filter: PostFilter) => Promise<Post[]>
+  getResentPosts: (number: number) => Promise<PostWithAuthor[]>
+  getAllPosts: () => Promise<PostWithAuthor[]>
+  getFilteredPosts: (filter: PostFilter) => Promise<PostWithAuthor[]>
   getAllAuthors: () => Promise<User[]>
   getAllCategories: () => Promise<String[]>
 }
@@ -40,7 +42,17 @@ const getPost: PostContoller['getPost'] = async (postID: string) => {
     .populate('author')
     .populate('comments.author')
   if (!post) throw new BlogSiteError('POST_NOT_FOUND')
-  return post
+  return post as unknown as PostWithAuthorAndCommentAuthor
+}
+
+const deletePost: PostContoller['deletePost'] = async (postID: string, requestUser: User) => {
+  // check if post with given postid belongs to user who made the request or user is admin ->
+  // ensure that no one else can delete post
+  const checkPost = PostModel.findOne({ _id: postID, author: requestUser._id })
+  if (!checkPost && requestUser.role !== Role.ADMIN) {
+    throw new AuthorizationError()
+  }
+  await PostModel.findOneAndDelete({ _id: postID }).exec()
 }
 
 const addComment: PostContoller['addComment'] = async (comment: AddComment) => {
@@ -53,7 +65,7 @@ const updateComment: PostContoller['updateComment'] = async (
   requestUser: User,
 ) => {
   // check if comment with given commentid belongs to user who made the request or user is admin ->
-  // ensure that no one else can edit command
+  // ensure that no one else can edit comment
   const checkPost = await PostModel.findOne({
     'comments._id': commentId,
     'comments.author': requestUser._id,
@@ -89,12 +101,26 @@ const deleteComment: PostContoller['deleteComment'] = async (
 }
 
 const getRescentPosts: PostContoller['getResentPosts'] = async (number: number) => {
-  return await PostModel.find().sort({ date: -1 }).limit(number).populate('author').exec()
+  return (await PostModel.find()
+    .sort({ date: -1 })
+    .limit(number)
+    .populate('author')
+    .exec()) as unknown as PostWithAuthor[]
+}
+
+const getAllPosts: PostContoller['getAllPosts'] = async () => {
+  return (await PostModel.find()
+    .sort({ date: 1 })
+    .populate('author')
+    .exec()) as unknown as PostWithAuthor[]
 }
 
 const getFilteredPosts: PostContoller['getFilteredPosts'] = async (filter: PostFilter) => {
   const query = getQueryForFilteredPost(filter)
-  return await PostModel.find(query).sort({ date: -1 }).populate('author').exec()
+  return (await PostModel.find(query)
+    .sort({ date: -1 })
+    .populate('author')
+    .exec()) as unknown as PostWithAuthor[]
 }
 
 const getAllAuthors: PostContoller['getAllAuthors'] = async () => {
@@ -125,10 +151,12 @@ const getQueryForFilteredPost = (filter: PostFilter) => {
 export const PostController: PostContoller = {
   createPost: createPost,
   getPost: getPost,
+  deletePost: deletePost,
   addComment: addComment,
   updateComment: updateComment,
   deleteComment: deleteComment,
   getResentPosts: getRescentPosts,
+  getAllPosts: getAllPosts,
   getFilteredPosts: getFilteredPosts,
   getAllAuthors: getAllAuthors,
   getAllCategories: getAllCategories,

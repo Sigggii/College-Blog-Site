@@ -17,8 +17,15 @@ postRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
   }
   //create Post
   const postId = await PostController.createPost(post)
-  console.log(postId.toJSON())
   res.status(201).json({ postId: postId.toJSON() })
+})
+
+postRouter.delete('/:postid', async (req: Request, res: Response, next: NextFunction) => {
+  const postId = req.params.postid
+  const user = res.locals.user
+  console.log(user)
+  await PostController.deletePost(postId, user)
+  res.status(200).end()
 })
 
 postRouter.post('/:postid/comment', async (req: Request, res: Response, next: NextFunction) => {

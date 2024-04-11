@@ -6,13 +6,11 @@
             <!-- Modified from here https://flowbite.com/docs/forms/select/ -->
             <div class="mt-6">
                 <label for="articles" class="mb-1 text-md font-medium text-secondary">Select a User</label>
-                <select id="articles"
-                        class="bg-white border border-secondary text-secondary text-xl rounded-lg focus:ring-primary focus:border-primary block p-4">
-                    <option selected>Choose a User</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                <select id="article-select" name="article" class="w-full block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid ">
+                    <option value=""></option>
+                    <%for(const post of allPosts){%>
+                    <option value="<%=post._id%>"><%=post.title.substring(0,40)%><%=post.title.length >= 40 ? '...' : ''%></option>
+                    <%}%>
                 </select>
             </div>
             <div class="self-end flex gap-2">

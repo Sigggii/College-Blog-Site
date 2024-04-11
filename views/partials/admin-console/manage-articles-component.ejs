@@ -1,3 +1,4 @@
+<script src="/js/admin-console/manage-articles.js"></script>
 <section class="p-5">
     <h1 class="w-full text-3xl font-medium leading-10 text-primary max-md:max-w-full">Manage Articles</h1>
     <hr class="my-2 w-full bg-black border border-black border-solid min-h-[1px] max-md:max-w-full"/>
@@ -5,21 +6,19 @@
         <section id="all-articles-container" class="flex flex-wrap gap-4">
             <!-- Modified from here https://flowbite.com/docs/forms/select/ -->
             <div class="mt-6">
-                <label for="articles" class="mb-1 text-md font-medium text-secondary">Select an Article</label>
-                <select id="articles"
-                        class="bg-white border border-secondary text-secondary text-xl rounded-lg focus:ring-primary focus:border-primary block p-4">
-                    <option selected>Choose a Article</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                <label for="articles-select" class="mb-1 text-md font-medium text-secondary">Select an Article</label>
+                <select id="article-select" name="article" class="block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid ">
+                    <option value=""></option>
+                    <%for(const post of allPosts){%>
+                    <option value="<%=post._id%>"><%=post.title.substring(0,40)%><%=post.title.length >= 40 ? '...' : ''%></option>
+                    <%}%>
                 </select>
             </div>
-            <div class="self-end flex gap-2">
-                <button class="text-xl justify-center px-6 py-4 whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5">
+            <div id="manage-article-buttons" class="hidden self-end flex gap-2">
+                <button class="text-base justify-center px-6 py-2 whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5">
                     Edit
                 </button>
-                <button class="text-xl justify-center px-6 py-4 text-white whitespace-nowrap bg-orange-600 rounded-lg shadow-sm max-md:px-5">
+                <button onclick="handleDeletePost()" class="text-base justify-center px-6 py-2 text-white whitespace-nowrap bg-orange-600 rounded-lg shadow-sm max-md:px-5">
                     Delete
                 </button>
             </div>

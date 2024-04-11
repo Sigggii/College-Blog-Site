@@ -1,4 +1,5 @@
 import { Post } from '../model/types'
+import { PostWithAuthor } from '../controller/types'
 
 /**
  * Returns Posts which have to be on given pageNumber
@@ -7,7 +8,7 @@ import { Post } from '../model/types'
  * @param posts All Posts: Post which are on given pageNumber are returned
  * @param pageNumber PageNumber for which posts should be returned
  */
-export const getPostsForGivenPage = (posts: Post[], pageNumber: number) => {
+export const getPostsForGivenPage = (posts: PostWithAuthor[], pageNumber: number) => {
   if (!process.env.ALL_POSTS_ARTICLES_PER_PAGE)
     throw new Error('EnvironmentVariable ALL_POSTS_ARTICLES_PER_PAGE was not set')
   const postsPerPage = Number(process.env.ALL_POSTS_ARTICLES_PER_PAGE)
@@ -26,7 +27,7 @@ export const getPostsForGivenPage = (posts: Post[], pageNumber: number) => {
  *
  * @param posts Post Array for which PageCount is calculated
  */
-export const getPageCount = (posts: Post[]) => {
+export const getPageCount = (posts: PostWithAuthor[]) => {
   if (!process.env.ALL_POSTS_ARTICLES_PER_PAGE)
     throw new Error('EnvironmentVariable ALL_POSTS_ARTICLES_PER_PAGE was not set')
   const postsPerPage = Number(process.env.ALL_POSTS_ARTICLES_PER_PAGE)

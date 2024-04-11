@@ -55,8 +55,9 @@ app.get('/create-post', (req: Request, res: Response) => {
   res.render('pages/create-post')
 })
 
-app.get('/admin-console', (req: Request, res: Response) => {
-  res.render('pages/admin-console')
+app.get('/admin-console', async (req: Request, res: Response) => {
+  const allPosts = await PostController.getAllPosts()
+  res.render('pages/admin-console', { allPosts: allPosts })
 })
 
 app.get('/posts/:id', async (req: Request, res: Response) => {

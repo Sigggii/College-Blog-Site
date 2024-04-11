@@ -57,7 +57,21 @@ const callCreatePost = (body, onSuccess) => {
   }).then((response) => {
     if (response.ok) {
       onSuccess(response)
-      //ToDo auf Post-Seite weiterleiten
+    } else {
+      handleError(response)
+    }
+  })
+}
+
+const callDeletePost = (postId, onSuccess) => {
+  fetch(`${apiPath}/posts/${postId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'DELETE',
+  }).then((response) => {
+    if (response.ok) {
+      onSuccess(response)
     } else {
       handleError(response)
     }
