@@ -1,5 +1,9 @@
 <article class="flex flex-col px-6 w-full text-black">
-    <time class="self-end text-xs text-zinc-600" datetime="2024-01-01">01.01.2024</time>
+    <time class="self-end text-xs text-zinc-600" ><%= previewPost.date.toLocaleString('de-DE', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric'
+        }) %></time>
     <div class="flex gap-1.5 font-medium">
         <img src="<%=previewPost.mainImage%>"
              alt="Blog post image" class="self-center w-[30%]"/>

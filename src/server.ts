@@ -8,9 +8,10 @@ import { Authenticator } from './api/middleware/authentication'
 import mongoose from 'mongoose'
 import { apiRouter } from './api/apiRouter'
 import ErrorHandler from './api/middleware/errorHandler'
-import { PostController } from './controller/postContoller'
+import { PostController, PostFilter } from './controller/postContoller'
 import { Role } from './model/types'
 import { PostModel } from './model/post'
+import { getPageCount, getPostsForGivenPage } from './utils/postUtils'
 
 dotenv.config()
 
@@ -64,8 +65,36 @@ app.get('/posts/:id', async (req: Request, res: Response) => {
   res.render('pages/post', { post: post, Role: Role })
 })
 
-app.get('/all-posts', (req: Request, res: Response) => {
-  res.render('pages/all-posts')
+app.get('/all-posts', async (req: Request, res: Response) => {
+  const filter: PostFilter = {
+    title: {
+      value: req.query.title as string,
+      strict: false,
+    },
+    category: {
+      value: req.query.category as string,
+      strict: true,
+    },
+    author: {
+      value: req.query.author as string,
+      strict: true,
+    },
+  }
+  const pageNumber = req.query.page ? Number(req.query.page) : 1
+
+  const posts = await PostController.getFilteredPosts(filter)
+  const postsOnPage = getPostsForGivenPage(posts, pageNumber)
+  const pageCount = getPageCount(posts)
+  const allAuthors = await PostController.getAllAuthors()
+  const allCategories = await PostController.getAllCategories()
+  res.render('pages/all-posts', {
+    posts: postsOnPage,
+    filter: filter,
+    allAuthors: allAuthors,
+    allCategories: allCategories,
+    pageNumber: pageNumber,
+    pageCount: pageCount,
+  })
 })
 
 // Register Error Handler as last

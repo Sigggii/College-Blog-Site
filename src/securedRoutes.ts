@@ -8,17 +8,17 @@ export const securedRoutes: SecuredRoutes = [
   { path: '/admin-console', method: 'GET', roles: [Role.ADMIN] },
   { path: '/api/v1/posts', method: 'POST', roles: [Role.AUTHOR, Role.ADMIN] },
   {
-    path: '/api/v1/posts/(.*)/comment',
+    path: '/api/v1/posts/(.+)/comment',
     method: 'POST',
     roles: [Role.USER, Role.AUTHOR, Role.ADMIN],
   },
   {
-    path: '/api/v1/posts/(.*)/comment/(.*)',
+    path: '/api/v1/posts/(.+)/comment/(.+)',
     method: 'PUT',
     roles: [Role.USER, Role.AUTHOR, Role.ADMIN],
   },
   {
-    path: '/api/v1/posts/(.*)/comment/(.*)',
+    path: '/api/v1/posts/(.+)/comment/(.+)',
     method: 'DELETE',
     roles: [Role.USER, Role.AUTHOR, Role.ADMIN],
   },

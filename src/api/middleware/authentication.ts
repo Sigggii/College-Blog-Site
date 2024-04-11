@@ -73,6 +73,8 @@ const authenticate = async (req: Request, res: Response): Promise<boolean> => {
  * @throws AuthorizationError if user is not authorized
  */
 const authorize = (securedRoute: SecuredRoute, user: User) => {
+  console.log(securedRoute)
+  console.log(user.role)
   if (!securedRoute.roles.includes(user.role)) {
     throw new AuthorizationError()
   }
@@ -88,6 +90,6 @@ const authorize = (securedRoute: SecuredRoute, user: User) => {
  *
  */
 const isSecuredRoute = (givenPath: string, actualPath: string) => {
-  const regex = new RegExp(givenPath)
+  const regex = new RegExp(`^givenPath$`)
   return regex.test(actualPath)
 }
