@@ -1,14 +1,14 @@
 <article class="flex flex-col px-6 w-full text-black">
     <time class="self-end text-xs text-zinc-600" datetime="2024-01-01">01.01.2024</time>
     <div class="flex gap-1.5 font-medium">
-        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/aa0545a2d31cb62f4fef0b412d58b324bb5000d45eb762c8e74d592db30a6077?apiKey=c26f5b0fc9d64e98831a49207aa49ae6&"
+        <img src="<%=previewPost.mainImage%>"
              alt="Blog post image" class="self-center w-[30%]"/>
         <div class="flex flex-col self-start w-[70%]">
             <h2 class="text-sm leading-5">
-                Dies ist ein schön langer Blog-Post oder so vltt. auch nicht ...
+                <%=previewPost.title%>
             </h2>
             <p class="mt-4 text-xs leading-4 text-zinc-600">
-                Dies ist ein schön langer Blog-Post oder so vltt. auch nicht ...
+                <%=previewPost.subtitle%>
             </p>
         </div>
     </div>
@@ -16,14 +16,13 @@
         <div class="flex gap-1">
             <img src="/assets/user-round.svg"
                  alt="Author avatar" class="shrink-0 aspect-square w-[15px]"/>
-            <span>Author name</span>
+            <span><%=previewPost.author.username%></span>
         </div>
-        <div>Category | 5 mins</div>
+        <div><%=previewPost.category%> | <%=previewPost.timeToRead%> mins</div>
     </div>
     <hr class="my-1 w-full bg-primary border border-primary border-solid min-h-[1px] max-md:max-w-full"/>
     <p class="text-sm">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nisi mauris. Donec vitae enim nunc. Duis
-        nec augue quis nisi cursus rutrum
-        <a href="#" class="font-semibold underline">Read more</a>
+        <%=previewPost.previewText%>
+        <a href="/posts/<%=previewPost._id%>" class="font-semibold underline">Read more</a>
     </p>
 </article>

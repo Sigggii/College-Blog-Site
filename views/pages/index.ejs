@@ -4,8 +4,15 @@
 <body>
 <%- include('../partials/header') %>
 <section class="flex flex-col items-center justify-center">
+    <% if(posts.length > 0){ %>
         <%- include('../partials/landing-page/featured-post-component') %>
-        <%- include('../partials/landing-page/recent-posts-component') %>
+         <% if(posts.length > 1){ %>
+                <%- include('../partials/landing-page/recent-posts-component') %>
+        <% } %>
+    <% } else { %>
+        <span>So empty here, a blog must contain some articles bloody hell!</span>
+        <span>So write some!</span>
+    <% } %>
 </section>
 <%- include('../partials/general/alert-component') %>
 </body>

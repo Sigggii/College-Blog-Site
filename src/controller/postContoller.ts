@@ -11,6 +11,7 @@ type PostContoller = {
   addComment: (comment: AddComment) => Promise<void>
   updateComment: (commentId: string, content: string, requestUser: User) => Promise<void>
   deleteComment: (commentId: string, requestUser: User) => Promise<void>
+  getResentPosts: (number: number) => Promise<Post[]>
 }
 
 const createPost: PostContoller['createPost'] = async (post: CreatePost) => {
@@ -71,10 +72,15 @@ const deleteComment: PostContoller['deleteComment'] = async (
   )
 }
 
+const getRescentPosts: PostContoller['getResentPosts'] = async (number: number) => {
+  return await PostModel.find().sort({ date: -1 }).limit(number).populate('author').exec()
+}
+
 export const PostController: PostContoller = {
   createPost: createPost,
   getPost: getPost,
   addComment: addComment,
   updateComment: updateComment,
   deleteComment: deleteComment,
+  getResentPosts: getRescentPosts,
 }

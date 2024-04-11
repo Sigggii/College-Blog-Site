@@ -1,27 +1,29 @@
+<%const featuredPost = posts[0]%>
 <section class="flex flex-col px-5 text-black max-w-[600px]">
     <img src="/assets/race-flag.svg" alt="Featured Post Logo" class="self-center w-11 aspect-[1.02]"/>
     <h2 class="self-center mt-4 text-4xl text-yellow-400 font-[542]">Featured Post</h2>
-    <time class="mt-4 w-full text-xs text-zinc-600" datetime="2024-01-01">01.01.2024</time>
-    <h3 class="w-full text-xl">This is a post title which is a little bit longer or is it I dont know</h3>
-    <p class="w-full text-base text-zinc-600">And a little Subtitle</p>
-    <img src="/assets/main-image-placeholder.png" alt="Featured Post Image" class="rounded-2xl mt-2 w-full aspect-[1.52]"/>
+    <time class="mt-4 w-full text-xs text-zinc-600" ><%= featuredPost.date.toLocaleString('de-DE', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric'
+        }) %></time>
+    <h3 class="w-full text-xl"><%=featuredPost.title%></h3>
+    <p class="w-full text-base text-zinc-600"><%=featuredPost.subtitle%></p>
+    <img src="<%=featuredPost.mainImage%>" alt="Featured Post Image" class="rounded-2xl mt-2 w-full aspect-[1.52]"/>
     <div class="flex justify-between mt-2 w-full font-medium leading-[150%] text-zinc-600">
         <div class="flex gap-1 text-sm">
             <img src="/assets/user-round.svg" alt="Author Avatar" class="shrink-0 aspect-square w-[18px]"/>
-            <span>Author name</span>
+            <span><%=featuredPost.author.username%></span>
         </div>
-        <div class="text-xs">Category | 5 mins</div>
+        <div class="text-xs"><%=featuredPost.category%> | <%=featuredPost.timeToRead%> mins</div>
     </div>
     <hr class="self-center w-full border border-yellow-400 border-solid aspect-[100] stroke-[1px] stroke-yellow-400"/>
     <p class="mt-3 w-full text-sm">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultricies leo et tincidunt rutrum.
-        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam interdum ut
-        ipsum id luctus. Aenean tristique ante sed libero placerat, sed hendrerit tortor luctus. Suspendisse at nibh
-        porta, maximus odio et, laoreet felis. Ut dui quam, finibus sed mi sit amet, ornare pretium tortor.
+        <%=featuredPost.previewText%>
     </p>
-    <button class="justify-center self-end px-4 py-2 bg-yellow-400 rounded-lg shadow-sm">
+    <a href="/posts/<%=featuredPost._id%>" class="justify-center self-end px-4 py-2 bg-yellow-400 rounded-lg shadow-sm">
         Read more
-    </button>
+    </a>
     <img src="/assets/race-flag.svg" alt="Featured Post Logo" class="self-center mt-4 w-11 aspect-[1.02]"/>
 
 </section>

@@ -12,6 +12,7 @@ postRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
     timeToRead: req.body.timeToRead,
     mainImage: req.body.imageLink,
     author: res.locals.user.id,
+    previewText: req.body.previewText,
     content: req.body.content,
   }
   //create Post

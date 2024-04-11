@@ -4,6 +4,14 @@ document.addEventListener('DOMContentLoaded', function (event) {
     e.preventDefault()
     createPost()
   })
+
+  // Dont allow line breaks for preview text
+  const textarea = document.getElementById('post-preview-text')
+  textarea.addEventListener('input', () => {
+    const fixedValue = textarea.value.replace(/\r?\n|\r/g, '')
+    textarea.value = fixedValue
+  })
+
   // init the quill editor
   const toolbarOptions = [
     [{ header: [1, 2, 3, false] }],
@@ -36,6 +44,7 @@ const createPost = () => {
   const category = document.getElementById('post-subtitle').value
   const timeToRead = document.getElementById('post-time-to-read').value
   const imageLink = document.getElementById('post-image-link').value
+  const previewText = document.getElementById('post-preview-text').value
   const postContent = quill.root.innerHTML
 
   const postData = {
@@ -44,6 +53,7 @@ const createPost = () => {
     category: category,
     timeToRead: timeToRead,
     imageLink: imageLink,
+    previewText: previewText,
     content: postContent,
   }
 

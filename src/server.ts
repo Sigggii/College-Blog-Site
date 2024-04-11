@@ -10,6 +10,7 @@ import { apiRouter } from './api/apiRouter'
 import ErrorHandler from './api/middleware/errorHandler'
 import { PostController } from './controller/postContoller'
 import { Role } from './model/types'
+import { PostModel } from './model/post'
 
 dotenv.config()
 
@@ -36,8 +37,9 @@ app.use('/', Authenticator(securedRoutes))
 
 app.use('/api/v1', apiRouter)
 
-app.get('/', (req: Request, res: Response) => {
-  res.render('pages/index')
+app.get('/', async (req: Request, res: Response) => {
+  const posts = await PostController.getResentPosts(10)
+  res.render('pages/index', { posts: posts })
 })
 
 app.get('/signup', (req: Request, res: Response) => {

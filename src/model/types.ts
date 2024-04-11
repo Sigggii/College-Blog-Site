@@ -30,6 +30,7 @@ export type Post = {
   timeToRead: string
   mainImage: string
   author: User['_id']
+  previewText: string
   content: string
   comments: Comment[]
 }

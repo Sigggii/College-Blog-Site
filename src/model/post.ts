@@ -56,6 +56,11 @@ export const PostSchema = new Schema({
     ref: 'User',
     required: true,
   },
+  previewText: {
+    type: String,
+    required: true,
+    maxLength: 200,
+  },
   content: {
     type: String,
     required: true,
