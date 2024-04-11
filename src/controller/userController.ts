@@ -1,5 +1,5 @@
 import { UserSignIn, UserSignUp } from './types'
-import { User } from '../model/types'
+import { Role, User } from '../model/types'
 import { UserModel, UserSchema } from '../model/user'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'

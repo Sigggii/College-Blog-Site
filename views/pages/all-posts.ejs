@@ -14,11 +14,13 @@
     <section id="filter-container" class="mt-4">
         <%- include('../partials/all-posts/post-filter-component') %>
     </section>
-    <section id="posts-container">
-        <%- include('../partials/general/post-preview-component') %>
-        <%- include('../partials/general/post-preview-component') %>
+    <section id="posts-container" class="flex flex-col justify-center">
+        <%for(const post of posts){%>
+            <img class="w-[40px] self-center" src="/assets/motorcycle.svg">
+            <%- include('../partials/general/post-preview-component', {previewPost: post}) %>
+        <%}%>
     </section>
-    <%- include('../partials/all-posts/post-pagination-component') %>
+    <%- include('../partials/all-posts/post-pagination-component', {submitFormId: 'post-filter-form'}) %>
 </section>
 <%- include('../partials/general/alert-component') %>
 </body>

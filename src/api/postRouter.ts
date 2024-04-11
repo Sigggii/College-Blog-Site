@@ -38,9 +38,6 @@ postRouter.put(
     const content = req.body.content
     const commentId = req.params.commentid
 
-    console.log(content)
-    console.log(commentId)
-
     await PostController.updateComment(commentId, content, res.locals.user)
     res.status(201).end()
   },

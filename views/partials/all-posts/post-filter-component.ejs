@@ -1,28 +1,39 @@
+<script src="/js/post-filter.js"></script>
 <div class="flex flex-col">
     <section class="flex flex-col gap-4">
         <hr class="shrink-0 h-px bg-primary border border-primary border-solid"/>
-        <label class="block text-md">
-            Title
-            <input type="text" placeholder="Title"
-                   class="w-full block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid "/>
-        </label>
-        <label class="block text-md">
-            Category
-            <input type="text" placeholder="Category"
-                   class="w-full block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid "/>
-        </label>
-        <label class="block text-md">
-            Author
-            <input type="text" placeholder="Author"
-                   class="w-full block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid "/>
-        </label>
+        <form id="post-filter-form" type="GET" action="/all-posts">
+            <label class="block text-md">
+                Title
+                <input id="title-filter" type="text" placeholder="Title" name="title" value="<%=filter.title.value%>"
+                       class="w-full block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid "/>
+            </label>
+            <label class="block text-md">
+                Category
+                <select id="category-filter" name="category" class="w-full block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid ">
+                    <option value=""></option>
+                    <%for(const category of allCategories){%>
+                    <option <%=category === filter.category.value ? 'selected': ''%> value="<%=category%>"><%=category%></option>
+                    <%}%>
+                </select>
+            </label>
+            <label class="block text-md">
+                Author
+                <select id="author-filter" name="author" class="w-full block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid ">
+                    <option value=""></option>
+                    <%for(const author of allAuthors){%>
+                        <option <%=author._id.toString() === filter.author.value ? 'selected': ''%> value="<%=author._id%>"><%=author.username%></option>
+                    <%}%>
+                </select>
+            </label>
+        </form>
         <hr class="shrink-0 mt-3 h-px bg-primary border border-primary border-solid"/>
     </section>
     <div class="self-end flex gap-3.5 self-end mt-3 text-sm font-medium leading-5 whitespace-nowrap">
-        <button class="justify-center px-6 py-2 rounded-lg border border-primary border-solid shadow-sm bg-primary bg-opacity-0">
+        <button onclick="handleResetFilter()" class="justify-center px-6 py-2 rounded-lg border border-primary border-solid shadow-sm bg-primary bg-opacity-0">
             Reset
         </button>
-        <button class="justify-center px-6 py-2 bg-primary rounded-lg shadow-sm">
+        <button form="post-filter-form" type="submit" class="justify-center px-6 py-2 bg-primary rounded-lg shadow-sm">
             Filter
         </button>
     </div>
