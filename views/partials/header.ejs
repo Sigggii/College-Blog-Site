@@ -1,13 +1,13 @@
 <script src="/js/header.js"></script>
 <header class="flex justify-between px-10 py-4 font-medium bg-white border-b-2 border-primary border-solid leading-[150%] max-md:flex-wrap max-md:px-5 mb-5">
     <a href="/" class="cursor-pointer flex gap-6 text-2xl text-primary">
-        <img src="./assets/curvy-road.png" alt="Curvy Roads logo" class="shrink-0 aspect-[0.91] w-[60px]"/>
+        <img src="/assets/curvy-road.png" alt="Curvy Roads logo" class="shrink-0 aspect-[0.91] w-[60px]"/>
         <h1 class="flex-auto my-auto">Curvy Roads</h1>
     </a>
     <nav class="max-md:hidden flex gap-8 items-center my-auto text-md text-black max-md:flex-wrap">
-        <a href="#" class="self-stretch my-auto">Posts</a>
-        <a href="#" class="self-stretch my-auto">Create Post</a>
-        <a href="#" class="self-stretch my-auto">Admin Console</a>
+        <a href="/all-posts" class="self-stretch my-auto">Posts</a>
+        <a href="/create-post" class="self-stretch my-auto">Create Post</a>
+        <a href="/admin-console" class="self-stretch my-auto">Admin Console</a>
         <button onclick="<%= loggedIn? 'onLogout()' : 'onLogin()' %>"
            class="justify-center self-stretch px-6 py-3.5 text-base whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5"><%= loggedIn ? 'Logout' : 'Login' %></button>
     </nav>

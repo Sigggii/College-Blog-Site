@@ -2,7 +2,11 @@
 <html lang="en">
 <script src="/js/signIn.js"></script>
 <%- include('../partials/head'); %>
-<body class="h-screen flex items-center justify-center">
-<%- include('../partials/signin-component') %>
+<body>
+<%- include('../partials/header') %>
+<section class="h-full flex flex-col w-full items-center justify-center">
+    <%- include('../partials/signin-component') %>
+</section>
+<%- include('../partials/general/alert-component') %>
 </body>
 </html>

@@ -1,13 +1,39 @@
+<script src="/js/comment.js"></script>
 <article class="flex gap-1.5 items-start">
-    <img src="./assets/user-round.svg" alt="User profile picture"
+    <img src="/assets/user-round.svg" alt="User profile picture"
          class="shrink-0 border border-black border-solid aspect-[1] w-[35px] rounded-3xl"/>
-    <div class="flex flex-col px-2 mt-1.5">
+    <div class="flex flex-col px-2 mt-1.5 w-full">
         <header class="flex gap-3">
-            <h3 class=text-sm font-bold text-primary">Max Mustermann</h3>
-            <time class="self-center flex-auto text-xs font-medium text-zinc-600">03.04.2024</time>
+            <h3 class="text-sm font-bold text-primary"><%= comment.author.username %></h3>
+            <time class="self-center flex-auto text-xs font-medium text-zinc-600"><%= comment.date.toLocaleString('de-DE', {
+                    month: '2-digit',
+                    day: '2-digit',
+                    year: 'numeric'
+                }) %></time>
+            <%if (locals.user && (locals.user.role === Role.ADMIN || locals.user._id.toString() === comment.author._id.toString())) {%>
+            <div class="flex gap-2 ml-2" >
+                <div class="text-primary w-[16px] hover:cursor-pointer" onclick=<%=`handleEditComment('${comment._id}')`%>>
+                    <%- include('../icons/pencil') %>
+                </div>
+                <div class="text-danger w-[16px] hover:cursor-pointer" onclick=<%=`handleDeleteComment('${comment._id}')`%>>
+                    <%- include('../icons/trash') %>
+                </div>
+            </div>
+            <%}%>
+
         </header>
-        <p class="mt-2 break-normal text-xs font-medium leading-5 text-black">
-            Ein wirklich super tulli mega awesome geiler Artikel, der da geschrieben wurde, einfach unglaublich
-        </p>
+        <section id=<%=`comment-content-container-${comment._id}`%> class="w-full flex flex-col">
+            <span id=<%=`comment-content-${comment._id}`%> data-placeholder="Edit comment..."
+                  class="w-full mb-2 focus:outline-none mt-2 break-normal text-xs font-medium leading-5 text-black"
+                  oninput="if(this.innerHTML.trim()==='<br>')this.innerHTML=''">
+                <%= comment.content %>
+            </span>
+            <button id=<%=`edit-comment-${comment._id}`%>
+                    type="submit"
+                    class="hidden justify-center self-end px-3.5 py-2 mt-1.5 text-sm font-medium leading-5 text-black whitespace-nowrap bg-primary rounded-lg shadow-sm"
+                    onclick=<%=`handleUpdateComment('${comment._id}')`%>>
+                Update
+            </button>
+        </section>
     </div>
 </article>

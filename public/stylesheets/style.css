@@ -561,6 +561,12 @@ span[contenteditable]:empty:not(:focus):before {
 .inset-0 {
   inset: 0px;
 }
+.bottom-0 {
+  bottom: 0px;
+}
+.right-0 {
+  right: 0px;
+}
 .right-4 {
   right: 1rem;
 }
@@ -569,6 +575,16 @@ span[contenteditable]:empty:not(:focus):before {
 }
 .z-50 {
   z-index: 50;
+}
+.float-right {
+  float: right;
+}
+.m-2 {
+  margin: 0.5rem;
+}
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 .mx-auto {
   margin-left: auto;
@@ -596,11 +612,17 @@ span[contenteditable]:empty:not(:focus):before {
 .mb-10 {
   margin-bottom: 2.5rem;
 }
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
 .mb-4 {
   margin-bottom: 1rem;
 }
 .mb-5 {
   margin-bottom: 1.25rem;
+}
+.ml-2 {
+  margin-left: 0.5rem;
 }
 .ml-3 {
   margin-left: 0.75rem;
@@ -610,6 +632,9 @@ span[contenteditable]:empty:not(:focus):before {
 }
 .ml-5 {
   margin-left: 1.25rem;
+}
+.ml-6 {
+  margin-left: 1.5rem;
 }
 .mt-1 {
   margin-top: 0.25rem;
@@ -692,11 +717,11 @@ span[contenteditable]:empty:not(:focus):before {
 .h-\[900px\] {
   height: 900px;
 }
+.h-full {
+  height: 100%;
+}
 .h-px {
   height: 1px;
-}
-.h-screen {
-  height: 100vh;
 }
 .min-h-\[1px\] {
   min-height: 1px;
@@ -715,6 +740,9 @@ span[contenteditable]:empty:not(:focus):before {
 }
 .w-\[15px\] {
   width: 15px;
+}
+.w-\[16px\] {
+  width: 16px;
 }
 .w-\[18px\] {
   width: 18px;
@@ -930,6 +958,14 @@ span[contenteditable]:empty:not(:focus):before {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
+.bg-danger {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 15 15 / var(--tw-bg-opacity));
+}
+.bg-gray-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+}
 .bg-orange-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(234 88 12 / var(--tw-bg-opacity));
@@ -964,6 +1000,9 @@ span[contenteditable]:empty:not(:focus):before {
 }
 .p-2 {
   padding: 0.5rem;
+}
+.p-3 {
+  padding: 0.75rem;
 }
 .p-4 {
   padding: 1rem;
@@ -1044,6 +1083,9 @@ span[contenteditable]:empty:not(:focus):before {
 .text-center {
   text-align: center;
 }
+.align-middle {
+  vertical-align: middle;
+}
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -1092,9 +1134,6 @@ span[contenteditable]:empty:not(:focus):before {
 .font-semibold {
   font-weight: 600;
 }
-.italic {
-  font-style: italic;
-}
 .leading-10 {
   line-height: 2.5rem;
 }
@@ -1113,6 +1152,10 @@ span[contenteditable]:empty:not(:focus):before {
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+.text-danger {
+  --tw-text-opacity: 1;
+  color: rgb(255 15 15 / var(--tw-text-opacity));
 }
 .text-primary {
   --tw-text-opacity: 1;
@@ -1147,6 +1190,9 @@ span[contenteditable]:empty:not(:focus):before {
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
 }
 .hover\:text-gray-200:hover {
   --tw-text-opacity: 1;

@@ -1,3 +1,6 @@
+<!-- Include the Quill library -->
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.js"></script>
+<script src="/js/createPost.js"></script>
 <!-- Include stylesheet for richt text editor -->
 <style>
     .ql-container .ql-editor {
@@ -7,53 +10,51 @@
 </style>
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.snow.css" rel="stylesheet"/>
 <section class="mb-10 px-5 text-2xl text-black max-w-[900px] ">
-    <section>
-        <h1 class="w-full text-6xl font-bold text-primary">Create Post</h1>
-        <input type="text"
-               class="justify-center py-3.5 mt-8 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
-               placeholder="Post-Title" aria-label="Post Title"/>
-        <input type="text"
-               class="justify-center py-3.5 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
-               placeholder="Subtitle" aria-label="Subtitle"/>
-        <input type="text"
-               class="justify-center py-3 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
-               placeholder="Category" aria-label="Category"/>
-        <input type="text"
-               class="justify-center py-3 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
-               placeholder="Time to read" aria-label="Time to read"/>
-        <h2 class="mt-6 w-full text-primary text-3xl">Main Image</h2>
-        <img src="./assets/main-image-placeholder.png"
-             alt="Main post image" class="self-start mt-1 w-full aspect-[1.49]"/>
-        <div class="flex gap-5 mt-2 w-full text-base font-medium leading-6">
-            <p class="flex-auto self-start">No image selected</p>
-            <button class="justify-center px-6 py-3.5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
-                Upload
-            </button>
-        </div>
-    </section>
-    <!-- Create the editor container -->
-    <section class="my-3">
-        <h2 class="my-2 w-full text-primary text-3xl">Post Content</h2>
-        <div id="editor">
-        </div>
-        <!-- Include the Quill library -->
-        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.js"></script>
-        <!-- Initialize Quill editor -->
-        <script>
-            const toolbarOptions = [
-                [{ header: [1, 2, 3, false] }],
-                ['bold', 'italic', 'underline', 'link'],
-                ['image', 'code-block', 'align', {'list': 'ordered'}, {'list': 'bullet'}],
-            ]
+    <form id="create-post-form">
+        <section>
+            <h1 class="w-full text-6xl font-bold text-primary">Create Post</h1>
+            <input id="post-title"
+                   type="text"
+                   class="justify-center py-3.5 mt-8 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
+                   placeholder="Post-Title" aria-label="Post Title" required/>
+            <input id="post-subtitle"
+                   type="text"
+                   class="justify-center py-3.5 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
+                   placeholder="Subtitle" aria-label="Subtitle" required/>
+            <input id="post-category"
+                   type="text"
+                   class="justify-center py-3 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
+                   placeholder="Category" aria-label="Category" required/>
+            <input id="post-time-to-read"
+                   type="text"
+                   class="justify-center py-3 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
+                   placeholder="Time to read" aria-label="Time to read" required/>
+            <h2 class="mt-6 w-full text-primary text-3xl">Main Image</h2>
+            <img id="main-image"
+                 src="/assets/main-image-placeholder.png"
+                 alt="Main post image" class="self-start mt-1 w-full aspect-[1.49] rounded-2xl"/>
+            <div class="flex gap-5 mt-2 w-full text-base font-medium leading-6">
+                <label for="image-link" class="sr-only">Image-Link</label>
+                <input id="post-image-link" name="image-link" placeholder="Image-Link"
+                       class="justify-center py-3 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
+                       required></input>
+                <button onclick="setImage()"
+                        type="button"
+                        class="justify-center px-6 py-3.5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
+                    Set Image
+                </button>
+            </div>
 
-            const quill = new Quill('#editor', {
-                theme: 'snow',
-                modules: {
-                    toolbar: toolbarOptions,
-                    list: true
-                }
-            });
-        </script>
-    </section>
-
+        </section>
+        <!-- Create the editor container -->
+        <section class="my-3">
+            <h2 class="my-2 w-full text-primary text-3xl">Post Content</h2>
+            <div id="editor">
+            </div>
+        </section>
+        <button type="submit"
+                class="text-base float-right justify-center px-6 py-3.5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
+            Create Post
+        </button>
+    </form>
 </section>

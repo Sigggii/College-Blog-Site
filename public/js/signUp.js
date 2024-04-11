@@ -12,11 +12,10 @@ const onSignUp = () => {
   const password = document.getElementById('password').value
   const password_confirm = document.getElementById('confirm-password').value
 
-  //Show error Message if Passwords don't match
-  if (password !== password_confirm) {
-    document.getElementById('sign-up-error-message').textContent = "Passwords don't match"
-    document.getElementById('sign-up-error-message').classList.remove('hidden')
+  //Send SignUp Request to backend if passwords match, otherwise show error Message
+  if (password === password_confirm) {
+    signUp({ username: username, email: email, password: password })
+  } else {
+    openAlert('Error', 'Passwords dont match')
   }
-
-  signUp({ username: username, email: email, password: password })
 }

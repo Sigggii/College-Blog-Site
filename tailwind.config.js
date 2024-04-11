@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         primary: '#facc15',
         secondary: '#000000',
+        danger: '#ff0f0f',
       },
     },
   },
@@ -15,4 +16,4 @@ module.exports = {
       autoprefixer: {},
     },
   ],
-};
+}

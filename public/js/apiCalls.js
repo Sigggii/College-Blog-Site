@@ -9,8 +9,9 @@ const signIn = (body) => {
     body: JSON.stringify(body),
   }).then((response) => {
     if (response.ok) {
-      console.log('Test')
       window.location.assign('/')
+    } else {
+      handleError(response)
     }
   })
 }
@@ -25,6 +26,8 @@ const signUp = (body) => {
   }).then((response) => {
     if (response.ok) {
       window.location.assign('/')
+    } else {
+      handleError(response)
     }
   })
 }
@@ -38,6 +41,72 @@ const signOut = () => {
   }).then((response) => {
     if (response.ok) {
       window.location.assign('/signin')
+    } else {
+      handleError(response)
+    }
+  })
+}
+
+const callCreatePost = (body, onSuccess) => {
+  fetch(`${apiPath}/posts/`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify(body),
+  }).then((response) => {
+    if (response.ok) {
+      onSuccess(response)
+      //ToDo auf Post-Seite weiterleiten
+    } else {
+      handleError(response)
+    }
+  })
+}
+
+const callAddComment = (body, postId, onSuccess) => {
+  fetch(`${apiPath}/posts/${postId}/comment`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify(body),
+  }).then((response) => {
+    if (response.ok) {
+      onSuccess()
+    } else {
+      handleError(response)
+    }
+  })
+}
+
+const callUpdateComment = (postId, commentId, content, onSuccess) => {
+  fetch(`${apiPath}/posts/${postId}/comment/${commentId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+    body: JSON.stringify(content),
+  }).then((response) => {
+    if (response.ok) {
+      onSuccess()
+    } else {
+      handleError(response)
+    }
+  })
+}
+
+const callDeleteComment = (postId, commentId, onSuccess) => {
+  fetch(`${apiPath}/posts/${postId}/comment/${commentId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'DELETE',
+  }).then((response) => {
+    if (response.ok) {
+      onSuccess()
+    } else {
+      handleError(response)
     }
   })
 }

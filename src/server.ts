@@ -1,11 +1,15 @@
+import { securedRoutes } from './securedRoutes'
+
 require('express-async-errors')
 import express, { Express, Request, Response } from 'express'
 import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'
-import { authentication } from './api/middleware/authentication'
+import { Authenticator } from './api/middleware/authentication'
 import mongoose from 'mongoose'
 import { apiRouter } from './api/apiRouter'
 import ErrorHandler from './api/middleware/errorHandler'
+import { PostController } from './controller/postContoller'
+import { Role } from './model/types'
 
 dotenv.config()
 
@@ -28,7 +32,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 // Check if user if authenticated and if not check if user tries to access restricted site
-app.use('/', authentication(['/createPost', '/admin-console']))
+app.use('/', Authenticator(securedRoutes))
 
 app.use('/api/v1', apiRouter)
 
@@ -52,8 +56,10 @@ app.get('/admin-console', (req: Request, res: Response) => {
   res.render('pages/admin-console')
 })
 
-app.get('/post', (req: Request, res: Response) => {
-  res.render('pages/post')
+app.get('/posts/:id', async (req: Request, res: Response) => {
+  const postID = req.params.id
+  const post = await PostController.getPost(postID)
+  res.render('pages/post', { post: post, Role: Role })
 })
 
 app.get('/all-posts', (req: Request, res: Response) => {

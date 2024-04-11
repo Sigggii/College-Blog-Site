@@ -1,23 +1,26 @@
+<script src="/js/comment-container.js"></script>
 <section class="w-full mt-8 flex flex-col justify-center">
-    <form class="w-full flex flex-col">
-        <label for="comment" class="sr-only">Write comment</label>
-        <span id="comment"
-              contenteditable="true"
-              data-placeholder="Write comment..."
+    <form id="add-comment-form" class="w-full flex flex-col">
+        <input id="post-id" class="hidden" value="<%=post._id%>" />
+        <label for="new-comment-content" class="sr-only">Write comment</label>
+        <span id="new-comment-content"
+              contenteditable="<%=loggedIn? "true" : "false"%>"
+              data-placeholder="<%=loggedIn? "Write comment..." : "Login to write comments"%>"
               oninput="if(this.innerHTML.trim()==='<br>')this.innerHTML=''"
               class="py-1 resize-none focus:outline-none justify-center text-sm text-black border-b border-primary border-solid"></span>
         <button type="submit"
-                class="justify-center self-end px-3.5 py-2 mt-1.5 text-sm font-medium leading-5 text-black whitespace-nowrap bg-primary rounded-lg shadow-sm">
+                <%=loggedIn ? '' : 'disabled'%>
+                class="justify-center self-end px-3.5 py-2 mt-1.5 text-sm font-medium leading-5 text-black whitespace-nowrap <%=loggedIn ? 'bg-primary' : 'bg-gray-400 text-white'%> rounded-lg shadow-sm">
             Comment
         </button>
     </form>
     <script>
 
     </script>
-    <section class="flex flex-col gap-7">
-        <%- include('./comment-component') %>
-        <%- include('./comment-component') %>
-        <%- include('./comment-component') %>
+    <section class="flex flex-col gap-7 mt-5">
+        <% for (const comment of post.comments ){%>
+            <%- include('./comment-component', {comment: comment}) %>
+        <% }%>
     </section>
 
 </section>
