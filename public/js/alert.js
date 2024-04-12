@@ -3,9 +3,8 @@ const alertTypeColors = {
   success: 'bg-success',
 }
 
-const closeAlert = (type = 'danger', eventListener) => {
+const closeAlert = () => {
   document.getElementById('alert').classList.add('hidden')
-  document.getElementById('alert').classList.remove(alertTypeColors[type])
   document.getElementById('alert').removeEventListener('click', this)
 }
 
@@ -19,6 +18,9 @@ const openAlert = (title, message, type = 'danger') => {
 
   //Add EventListener for closing alert
   document.getElementById('close-alert').addEventListener('click', (event) => {
-    closeAlert(type, this)
+    closeAlert()
+    document.getElementById('alert').classList.remove(alertTypeColors[type])
+    //Remove EventListener again
+    document.getElementById('close-alert').removeEventListener('click', event.currentTarget.handler)
   })
 }

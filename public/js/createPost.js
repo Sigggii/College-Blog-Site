@@ -68,8 +68,9 @@ const updatePost = () => {
     window.location.assign(`/posts/${postId}`)
   }
 
-  const isEdit = Boolean(document.getElementById('isEditPost').value)
-  if (isEdit) {
+  const isEdit = document.getElementById('isEditPost').value
+
+  if (isEdit === 'true') {
     const postId = document.getElementById('editPostId').value
     callEditPost(postId, postData, onUpdatePostSuccess)
   } else {
