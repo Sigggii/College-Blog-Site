@@ -15,6 +15,11 @@ const toggleManageArticleButtons = (value) => {
   }
 }
 
+const handleViewDetailPage = () => {
+  const postId = document.getElementById('article-select').value
+  window.location.assign(`/posts/${postId}`)
+}
+
 const handleEditPost = () => {
   const postId = document.getElementById('article-select').value
   window.location.assign(`/create-post?postId=${postId}`)

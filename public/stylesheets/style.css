@@ -781,6 +781,9 @@ span[contenteditable]:empty:not(:focus):before {
 .w-full {
   width: 100%;
 }
+.min-w-40 {
+  min-width: 10rem;
+}
 .max-w-\[500px\] {
   max-width: 500px;
 }

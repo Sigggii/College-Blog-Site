@@ -6,8 +6,8 @@
         <section id="all-articles-container" class="flex flex-wrap gap-4">
             <!-- Modified from here https://flowbite.com/docs/forms/select/ -->
             <div class="mt-6">
-                <label for="articles-select" class="mb-1 text-md font-medium text-secondary">Select an Article to edit or delete</label>
-                <select id="article-select" name="article" class="block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid ">
+                <label for="articles-select" class="mb-1 text-md font-medium text-secondary">Select an Article</label>
+                <select id="article-select" name="article" class="block justify-center min-w-40 items-start p-2 bg-white rounded-xl border border-black border-solid ">
                     <option value=""></option>
                     <%for(const post of allPosts){%>
                     <option value="<%=post._id%>"><%=post.title.substring(0,40)%><%=post.title.length >= 40 ? '...' : ''%></option>
@@ -15,6 +15,9 @@
                 </select>
             </div>
             <div id="manage-article-buttons" class="hidden self-end flex gap-2">
+                <button onclick="handleViewDetailPage()" class="text-base justify-center px-6 py-2 whitespace-nowrap border-primary border-solid border-2 text-primary rounded-lg shadow-sm max-md:px-5">
+                    View Post
+                </button>
                 <button onclick="handleEditPost()" class="text-base justify-center px-6 py-2 whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5">
                     Edit
                 </button>
