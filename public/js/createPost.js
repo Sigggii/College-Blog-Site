@@ -2,7 +2,7 @@ let quill
 document.addEventListener('DOMContentLoaded', function (event) {
   document.getElementById('create-post-form').addEventListener('submit', (e) => {
     e.preventDefault()
-    createPost()
+    updatePost()
   })
 
   // Dont allow line breaks for preview text
@@ -38,7 +38,7 @@ const setImage = () => {
   }
 }
 
-const createPost = () => {
+const updatePost = () => {
   const title = document.getElementById('post-title').value
   const subtitle = document.getElementById('post-subtitle').value
   const category = document.getElementById('post-subtitle').value
@@ -63,5 +63,16 @@ const createPost = () => {
     window.location.assign(`/posts/${postId}`)
   }
 
-  callCreatePost(postData, onCreatePostSuccess)
+  const onUpdatePostSuccess = async () => {
+    const postId = document.getElementById('editPostId').value
+    window.location.assign(`/posts/${postId}`)
+  }
+
+  const isEdit = Boolean(document.getElementById('isEditPost').value)
+  if (isEdit) {
+    const postId = document.getElementById('editPostId').value
+    callEditPost(postId, postData, onUpdatePostSuccess)
+  } else {
+    callCreatePost(postData, onCreatePostSuccess)
+  }
 }

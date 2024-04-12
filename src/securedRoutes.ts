@@ -7,7 +7,9 @@ export const securedRoutes: SecuredRoutes = [
   { path: '/create-post', method: 'GET', roles: [Role.AUTHOR, Role.ADMIN] },
   { path: '/admin-console', method: 'GET', roles: [Role.ADMIN] },
   { path: '/api/v1/posts', method: 'POST', roles: [Role.AUTHOR, Role.ADMIN] },
+  { path: '/api/v1/posts/(.+)', method: 'PUT', roles: [Role.AUTHOR, Role.ADMIN] },
   { path: '/api/v1/posts/(.+)', method: 'DELETE', roles: [Role.AUTHOR, Role.ADMIN] },
+
   {
     path: '/api/v1/posts/(.+)/comment',
     method: 'POST',

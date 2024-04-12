@@ -17,12 +17,12 @@ const toggleManageArticleButtons = (value) => {
 
 const handleEditPost = () => {
   const postId = document.getElementById('article-select').value
-  //ToDo Handle Edit Post
+  window.location.assign(`/create-post?postId=${postId}`)
 }
 
 const handleDeletePost = () => {
   const handleDeletePostSuccess = () => {
-    //reload page to remove deleted article from select
+    //reload page after post was deleted
     window.location.reload()
   }
 

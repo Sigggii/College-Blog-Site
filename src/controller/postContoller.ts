@@ -1,11 +1,16 @@
-import { AddComment, CreatePost, PostWithAuthor, PostWithAuthorAndCommentAuthor } from './types'
+import {
+  AddComment,
+  CreatePost,
+  EditPost,
+  PostWithAuthor,
+  PostWithAuthorAndCommentAuthor,
+} from './types'
 import { PostModel } from '../model/post'
 import { Post, Role, User } from '../model/types'
 import { BlogSiteError } from '../api/middleware/BlogSiteError'
 import { Types } from 'mongoose'
 import { AuthorizationError } from '../api/middleware/AuthorizationError'
 import { UserModel } from '../model/user'
-import { fchmod } from 'node:fs'
 
 type FilterOption<T, K extends boolean> = {
   value: T
@@ -21,11 +26,13 @@ export type PostFilter = {
 type PostContoller = {
   createPost: (post: CreatePost) => Promise<Types.ObjectId>
   getPost: (postID: string) => Promise<PostWithAuthorAndCommentAuthor>
+  editPost: (postID: string, editData: EditPost, requestUser: User) => Promise<void>
   deletePost: (postId: string, requestUser: User) => Promise<void>
   addComment: (comment: AddComment) => Promise<void>
   updateComment: (commentId: string, content: string, requestUser: User) => Promise<void>
   deleteComment: (commentId: string, requestUser: User) => Promise<void>
-  getResentPosts: (number: number) => Promise<PostWithAuthor[]>
+  getPostsOfLastDay: () => Promise<PostWithAuthor[]>
+  getLastNPosts: (number: number) => Promise<PostWithAuthor[]>
   getAllPosts: () => Promise<PostWithAuthor[]>
   getFilteredPosts: (filter: PostFilter) => Promise<PostWithAuthor[]>
   getAllAuthors: () => Promise<User[]>
@@ -43,6 +50,24 @@ const getPost: PostContoller['getPost'] = async (postID: string) => {
     .populate('comments.author')
   if (!post) throw new BlogSiteError('POST_NOT_FOUND')
   return post as unknown as PostWithAuthorAndCommentAuthor
+}
+
+const editPost: PostContoller['editPost'] = async (
+  postID: string,
+  editData: EditPost,
+  requestUser: User,
+) => {
+  // check if post with given postid belongs to user who made the request or user is admin ->
+  // ensure that no one else can edit post ToDo auslagern, wird ganz oft verwendet
+  const checkPost = PostModel.findOne({ _id: postID, author: requestUser._id })
+  if (!checkPost && requestUser.role !== Role.ADMIN) {
+    throw new AuthorizationError()
+  }
+
+  const postToEdit = await PostModel.findOne({ _id: postID })
+  if (!postToEdit) throw new BlogSiteError('POST_NOT_FOUND')
+  Object.assign(postToEdit, editData)
+  postToEdit.save()
 }
 
 const deletePost: PostContoller['deletePost'] = async (postID: string, requestUser: User) => {
@@ -100,7 +125,15 @@ const deleteComment: PostContoller['deleteComment'] = async (
   )
 }
 
-const getRescentPosts: PostContoller['getResentPosts'] = async (number: number) => {
+const getPostsOfLastDay: PostContoller['getPostsOfLastDay'] = async () => {
+  const now = new Date()
+  const date24HoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000)
+  return (await PostModel.find({ date: { $gte: date24HoursAgo, $lte: now } })
+    .populate('author')
+    .exec()) as unknown as PostWithAuthor[]
+}
+
+const getLastNPosts: PostContoller['getLastNPosts'] = async (number: number) => {
   return (await PostModel.find()
     .sort({ date: -1 })
     .limit(number)
@@ -151,11 +184,13 @@ const getQueryForFilteredPost = (filter: PostFilter) => {
 export const PostController: PostContoller = {
   createPost: createPost,
   getPost: getPost,
+  editPost: editPost,
   deletePost: deletePost,
   addComment: addComment,
   updateComment: updateComment,
   deleteComment: deleteComment,
-  getResentPosts: getRescentPosts,
+  getPostsOfLastDay: getPostsOfLastDay,
+  getLastNPosts: getLastNPosts,
   getAllPosts: getAllPosts,
   getFilteredPosts: getFilteredPosts,
   getAllAuthors: getAllAuthors,

@@ -63,6 +63,22 @@ const callCreatePost = (body, onSuccess) => {
   })
 }
 
+const callEditPost = (postId, editData, onSuccess) => {
+  fetch(`${apiPath}/posts/${postId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+    body: JSON.stringify(editData),
+  }).then((response) => {
+    if (response.ok) {
+      onSuccess()
+    } else {
+      handleError(response)
+    }
+  })
+}
+
 const callDeletePost = (postId, onSuccess) => {
   fetch(`${apiPath}/posts/${postId}`, {
     headers: {

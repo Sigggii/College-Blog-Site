@@ -12,30 +12,39 @@
 <section class="mb-10 px-5 text-2xl text-black max-w-[900px] ">
     <form id="create-post-form">
         <section>
-            <h1 class="w-full text-6xl font-bold text-primary">Create Post</h1>
+            <input id="isEditPost" value="<%= isEdit ? 'true' : 'false' %>" class="hidden" disabled/>
+            <input id="editPostId" value="<%= isEdit ? editPost._id : '' %>" class="hidden" disabled/>
+            <h1 class="w-full text-6xl font-bold text-primary"> <%= isEdit ? 'Edit Post' : 'Create Post' %></h1>
             <input id="post-title"
                    type="text"
+                   value="<%= isEdit ? editPost.title : '' %>"
                    class="justify-center py-3.5 mt-8 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
                    placeholder="Post-Title" aria-label="Post Title" required/>
             <input id="post-subtitle"
                    type="text"
+                   value="<%= isEdit ? editPost.subtitle : '' %>"
                    class="justify-center py-3.5 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
                    placeholder="Subtitle" aria-label="Subtitle" required/>
             <input id="post-category"
                    type="text"
+                   value="<%= isEdit ? editPost.category : '' %>"
                    class="justify-center py-3 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
                    placeholder="Category" aria-label="Category" required/>
             <input id="post-time-to-read"
                    type="text"
+                   value="<%= isEdit ? editPost.timeToRead : '' %>"
                    class="justify-center py-3 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
                    placeholder="Time to read" aria-label="Time to read" required/>
             <h2 class="mt-6 w-full text-primary text-3xl">Main Image</h2>
             <img id="main-image"
-                 src="/assets/main-image-placeholder.png"
+
+                 src="<%= isEdit ? editPost.mainImage : ' /assets/main-image-placeholder.png' %>"
                  alt="Main post image" class="self-start mt-1 w-full aspect-[1.49] rounded-2xl"/>
             <div class="flex gap-5 mt-2 w-full text-base font-medium leading-6">
                 <label for="image-link" class="sr-only">Image-Link</label>
                 <input id="post-image-link" name="image-link" placeholder="Image-Link"
+                       type="text"
+                       value="<%= isEdit ? editPost.mainImage : '' %>"
                        class="justify-center py-3 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
                        required></input>
                 <button onclick="setImage()"
@@ -50,20 +59,21 @@
                           type="text"
                           maxlength="200"
                           class="mt-2 whitespace-pre-wrap resize-none justify-center py-3 px-3 w-full text-sm bg-white rounded-xl border border-black border-solid"
-                          aria-label="post-preview-text" required>
-                </textarea>
+                          aria-label="post-preview-text" required><%= isEdit? editPost.previewText: '' %></textarea>
             </div>
-
         </section>
         <!-- Create the editor container -->
         <section class="my-3">
             <h2 class="my-2 w-full text-primary text-3xl">Post Content</h2>
             <div id="editor">
+                <% if(isEdit){ %>
+                    <%- editPost.content %>
+                <% } %>
             </div>
         </section>
         <button type="submit"
                 class="text-base float-right justify-center px-6 py-3.5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
-            Create Post
+            <%= isEdit ? 'Update Post' : 'Create Post' %>
         </button>
     </form>
 </section>

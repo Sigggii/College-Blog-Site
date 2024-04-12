@@ -39,7 +39,7 @@ app.use('/', Authenticator(securedRoutes))
 app.use('/api/v1', apiRouter)
 
 app.get('/', async (req: Request, res: Response) => {
-  const posts = await PostController.getResentPosts(10)
+  const posts = await PostController.getLastNPosts(10)
   res.render('pages/index', { posts: posts })
 })
 
@@ -51,13 +51,20 @@ app.get('/signin', (req: Request, res: Response) => {
   res.render('pages/signin')
 })
 
-app.get('/create-post', (req: Request, res: Response) => {
-  res.render('pages/create-post')
+app.get('/create-post', async (req: Request, res: Response) => {
+  const postId = req.query.postId as string | undefined
+  if (!postId) {
+    res.render('pages/create-post', { isEdit: false })
+  } else {
+    const post = await PostController.getPost(postId)
+    res.render('pages/create-post', { editPost: post, isEdit: true })
+  }
 })
 
 app.get('/admin-console', async (req: Request, res: Response) => {
   const allPosts = await PostController.getAllPosts()
-  res.render('pages/admin-console', { allPosts: allPosts })
+  const postsLastDay = await PostController.getPostsOfLastDay()
+  res.render('pages/admin-console', { allPosts: allPosts, postsLastDay: postsLastDay })
 })
 
 app.get('/posts/:id', async (req: Request, res: Response) => {
