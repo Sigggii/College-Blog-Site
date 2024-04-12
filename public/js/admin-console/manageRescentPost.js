@@ -1,13 +1,11 @@
-const handleEditRescentPost = () => {
-  const postId = document.getElementById('rescentPostId').value
+const handleEditRescentPost = (postId) => {
   window.location.assign(`/create-post?postId=${postId}`)
 }
 
-const handleDeleteRescentPost = () => {
-  const handleDeletePostSuccess = () => {
-    //reload page to update page ater post was deleted
+const handleDeleteRescentPost = (postId) => {
+  const handleDeletePostSuccess = (postId) => {
+    //reload page to update page after post was deleted
     window.location.reload()
   }
-  const postId = document.getElementById('rescentPostId').value
   callDeletePost(postId, handleDeletePostSuccess)
 }

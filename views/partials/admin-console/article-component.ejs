@@ -1,4 +1,3 @@
-<script src="/js/admin-console/manageRescentPost.js"></script>
 <article class="bg-white border border-primary border-solid max-w-[734px]">
     <input id="rescentPostId" class="hidden" disabled value="<%=rescentPost._id%>" />
     <div class="flex gap-5 max-md:flex-col max-md:gap-0">
@@ -11,10 +10,10 @@
                 <p class="mt-4 text-sm text-black"><%=rescentPost.subtitle.substring(0, 30)%><%=rescentPost.subtitle.length >=30 ? '...' : ''%></p>
                 <p class="mt-2.5 text-black"><%=rescentPost.author.username%> | <%=rescentPost.timeToRead%> min</p>
                 <div class="flex gap-3 mt-3 whitespace-nowrap justify-end">
-                    <button onclick="handleEditRescentPost()" class="justify-center px-6 py-1.5 text-black bg-primary rounded-lg shadow-sm max-md:px-5">
+                    <button onclick="handleEditRescentPost('<%=rescentPost._id.toString()%>')" class="justify-center px-6 py-1.5 text-black bg-primary rounded-lg shadow-sm max-md:px-5">
                         Edit
                     </button>
-                    <button onclick="handleDeleteRescentPost()" class="justify-center px-6 py-1.5 text-white bg-orange-600 rounded-lg shadow-sm max-md:px-5">
+                    <button onclick="handleDeleteRescentPost('<%=rescentPost._id.toString()%>')" class="justify-center px-6 py-1.5 text-white bg-orange-600 rounded-lg shadow-sm max-md:px-5">
                         Delete
                     </button>
                 </div>

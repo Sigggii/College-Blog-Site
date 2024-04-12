@@ -12,6 +12,7 @@ import { PostController, PostFilter } from './controller/postContoller'
 import { Role } from './model/types'
 import { PostModel } from './model/post'
 import { getPageCount, getPostsForGivenPage } from './utils/postUtils'
+import { UserController } from './controller/userController'
 
 dotenv.config()
 
@@ -64,7 +65,12 @@ app.get('/create-post', async (req: Request, res: Response) => {
 app.get('/admin-console', async (req: Request, res: Response) => {
   const allPosts = await PostController.getAllPosts()
   const postsLastDay = await PostController.getPostsOfLastDay()
-  res.render('pages/admin-console', { allPosts: allPosts, postsLastDay: postsLastDay })
+  const allUsers = await UserController.getAllUsers()
+  res.render('pages/admin-console', {
+    allPosts: allPosts,
+    postsLastDay: postsLastDay,
+    allUsers: allUsers,
+  })
 })
 
 app.get('/posts/:id', async (req: Request, res: Response) => {

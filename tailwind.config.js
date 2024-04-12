@@ -7,6 +7,7 @@ module.exports = {
         primary: '#facc15',
         secondary: '#000000',
         danger: '#ff0f0f',
+        success: '#22bb33',
       },
     },
   },

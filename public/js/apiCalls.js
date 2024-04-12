@@ -1,7 +1,7 @@
 const apiPath = '/api/v1'
 
 const signIn = (body) => {
-  fetch(`${apiPath}/users/signin`, {
+  fetch(`${apiPath}/auth/signin`, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -17,7 +17,7 @@ const signIn = (body) => {
 }
 
 const signUp = (body) => {
-  fetch(`${apiPath}/users/signup`, {
+  fetch(`${apiPath}/auth/signup`, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -33,7 +33,7 @@ const signUp = (body) => {
 }
 
 const signOut = () => {
-  fetch(`${apiPath}/users/signout`, {
+  fetch(`${apiPath}/auth/signout`, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -132,6 +132,53 @@ const callDeleteComment = (postId, commentId, onSuccess) => {
       'Content-Type': 'application/json',
     },
     method: 'DELETE',
+  }).then((response) => {
+    if (response.ok) {
+      onSuccess()
+    } else {
+      handleError(response)
+    }
+  })
+}
+
+const callEditUser = (userId, editData, onSuccess) => {
+  fetch(`${apiPath}/users/${userId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+    body: JSON.stringify(editData),
+  }).then((response) => {
+    if (response.ok) {
+      onSuccess()
+    } else {
+      handleError(response)
+    }
+  })
+}
+
+const callDeleteUser = (userId, onSuccess) => {
+  fetch(`${apiPath}/users/${userId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'DELETE',
+  }).then((response) => {
+    if (response.ok) {
+      onSuccess()
+    } else {
+      handleError(response)
+    }
+  })
+}
+
+const callChangePassword = (userId, password, onSuccess) => {
+  fetch(`${apiPath}/users/${userId}/change-password`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+    body: JSON.stringify({ password: password }),
   }).then((response) => {
     if (response.ok) {
       onSuccess()

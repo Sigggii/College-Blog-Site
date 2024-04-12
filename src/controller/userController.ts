@@ -1,10 +1,10 @@
-import { UserSignIn, UserSignUp } from './types'
-import { Role, User } from '../model/types'
-import { UserModel, UserSchema } from '../model/user'
+import { UserSignIn, SignUpUser, EditUser } from './types'
+import { User } from '../model/types'
+import { UserModel } from '../model/user'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { BlogSiteError } from '../api/middleware/BlogSiteError'
-import mongoose from 'mongoose'
+import { PostModel } from '../model/post'
 
 export type SignUpReturn = {
   user: User
@@ -15,10 +15,17 @@ export type SignInReturn = {
 }
 
 type UserController = {
-  signUp: (user: UserSignUp) => Promise<SignUpReturn>
+  signUp: (user: SignUpUser) => Promise<SignUpReturn>
   signIn: (user: UserSignIn) => Promise<SignInReturn>
   getUser: (userId: string) => Promise<User | null>
+  getAllUsers: () => Promise<User[]>
+  deleteUser: (userId: string) => Promise<void>
+  editUser: (userId: string, editData: EditUser) => Promise<void>
+  changePassword: (userId: string, password: string) => Promise<void>
 }
+
+// saltRound for bcrypt
+const saltRounds = 10
 
 // Create new User
 const signUp: UserController['signUp'] = async (user) => {
@@ -26,7 +33,10 @@ const signUp: UserController['signUp'] = async (user) => {
   if (isEmailAlreadyUsed) {
     throw new BlogSiteError('EMAIL_ALREADY_EXISTS')
   }
-  const createdUser = await UserModel.create(user)
+  // hash password before saving it to database to ensure passwords of users cant be leaked
+  const userWithHash = { ...user }
+  userWithHash.password = bcrypt.hashSync(user.password, saltRounds)
+  const createdUser = await UserModel.create(userWithHash)
   return { user: createdUser }
 }
 
@@ -48,12 +58,38 @@ const signIn: UserController['signIn'] = async (user) => {
   throw new BlogSiteError('INVALID_CREDENTIALS')
 }
 
-const getUser = async (userId: string): Promise<User | null> => {
+const getUser: UserController['getUser'] = async (userId: string): Promise<User | null> => {
   return UserModel.findOne({ _id: userId })
+}
+
+const getAllUser: UserController['getAllUsers'] = async () => {
+  return await UserModel.find().sort({ email: -1 }).exec()
+}
+
+const deleteUser: UserController['deleteUser'] = async (userId: string) => {
+  // Delete all Posts of the user before deleting the user
+  await PostModel.deleteMany({ author: userId })
+  await UserModel.findOneAndDelete({ _id: userId }).exec()
+}
+
+const editUser: UserController['editUser'] = async (userId: string, editData: EditUser) => {
+  const userToEdit = await UserModel.findOne({ _id: userId })
+  if (!userToEdit) throw new BlogSiteError('POST_NOT_FOUND')
+  Object.assign(userToEdit, editData)
+  await userToEdit.save()
+}
+
+const changePassword: UserController['changePassword'] = async (userId: string, password) => {
+  const passwordHash = bcrypt.hashSync(password, saltRounds)
+  await UserModel.findOneAndUpdate({ _id: userId }, { $set: { password: passwordHash } })
 }
 
 export const UserController: UserController = {
   signUp: signUp,
   signIn: signIn,
   getUser: getUser,
+  getAllUsers: getAllUser,
+  deleteUser: deleteUser,
+  editUser: editUser,
+  changePassword: changePassword,
 }
