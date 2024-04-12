@@ -20,7 +20,7 @@ export const Authenticator =
     // set locals.loggedIn which is accessable by ejs templates to false. Will be set to true in case user is authenticated
     res.locals.loggedIn = false
     //Check if current route is secured, and if yes get route
-    const securedRoute = securedRoutes.find((route) => isSecuredRoute(route.path, req.path))
+    const securedRoute = securedRoutes.find((route) => isSecuredRoute(route, req))
 
     // If request contains jwt authenticate user
     if (jwt_identifier in req.cookies) {
@@ -89,7 +89,11 @@ const authorize = (securedRoute: SecuredRoute, user: User) => {
  * @return true if both paths match, else false
  *
  */
-const isSecuredRoute = (givenPath: string, actualPath: string) => {
-  const regex = new RegExp(`^${givenPath}$`)
-  return regex.test(actualPath)
+const isSecuredRoute = (givenPath: SecuredRoute, actualPath: Request) => {
+  const regexPattern = `^${givenPath.path.replace('*', '([^/]+)')}$`
+  const regex = new RegExp(regexPattern)
+  return (
+    regex.test(actualPath.path) &&
+    givenPath.method.toUpperCase() === actualPath.method.toUpperCase()
+  )
 }
