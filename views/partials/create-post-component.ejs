@@ -69,7 +69,7 @@ const imageLinkInput = {
 
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.snow.css" rel="stylesheet"/>
 <section class="mb-10 px-5 text-base text-black max-w-[800px] lg:w-[800px] mx-auto ">
-    <form id="create-post-form" class="w-full">
+    <form id="create-post-form" class="max-w-[800px] lg:w-[800px]">
         <section class="w-full flex flex-col gap-3">
             <input id="isEditPost" value="<%= isEdit ? 'true' : 'false' %>" class="hidden" disabled/>
             <input id="editPostId" value="<%= isEdit ? editPost._id : '' %>" class="hidden" disabled/>
@@ -86,7 +86,7 @@ const imageLinkInput = {
             <img id="main-image"
 
                  src="<%= isEdit ? editPost.mainImage : ' /assets/main-image-placeholder.png' %>"
-                 alt="Main post image" class="w-full self-start mt-1 rounded-2xl max-w-[800px] lg:w-[800px]"/>
+                 alt="Main post image" class="self-start mt-1 rounded-2xl max-w-[800px] lg:w-[800px]"/>
             <div class="flex gap-5 mt-2 w-full text-base font-medium leading-6">
                 <label for="image-link" class="sr-only">Image-Link</label>
                 <div class="w-full">
