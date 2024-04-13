@@ -81,6 +81,8 @@ const handleUpdateUserPassword = () => {
   const password = document.getElementById('update-password-input').value
 
   const handleUpdatePasswordSuccess = () => {
+    //close container again
+    document.getElementById('update-user-password-container').classList.add('hidden')
     openAlert('Success', 'Password was updated!', 'success')
   }
 

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('../partials/head'); %>
-<body>
+<body class="min-h-screen flex flex-col">
 <%- include('../partials/header') %>
 <section class="flex flex-col p-5 mx-auto w-full bg-white max-w-[600px]">
-    <section class="flex flex-col px-6 w-full text-xl text-black">
+    <section class="flex flex-col w-full text-xl text-black">
         <div class="flex justify-between gap-0 self-start ml-3.5 text-4xl py-1">
-            <h1 class="self-end">All Blog Posts</h1>
+            <span class="self-end">All Blog Posts</span>
             <img src="/assets/motorcycle.svg"
-                 alt="Decorative image" class="self-end w-[15%] -rotate-[30deg]"/>
+                 alt="Decorative image" class="self-end self-end w-[12%] -rotate-[30deg]"/>
         </div>
     </section>
     <section id="filter-container" class="mt-4">
         <%- include('../partials/all-posts/post-filter-component') %>
     </section>
-    <section id="posts-container" class="flex flex-col justify-center">
+    <section id="posts-container" class="flex gap-4 flex-col justify-center">
         <%for(const post of posts){%>
             <img class="w-[40px] self-center" src="/assets/motorcycle.svg">
             <%- include('../partials/general/post-preview-component', {previewPost: post}) %>
@@ -23,5 +23,6 @@
     <%- include('../partials/all-posts/post-pagination-component', {submitFormId: 'post-filter-form'}) %>
 </section>
 <%- include('../partials/general/alert-component') %>
+<%- include('../partials/general/footer') %>
 </body>
 </html>

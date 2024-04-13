@@ -1,5 +1,5 @@
 <%const featuredPost = posts[0]%>
-<section class="flex flex-col px-5 text-black max-w-[600px]">
+<section class="flex flex-col px-5 text-black max-w-[800px]">
     <img src="/assets/race-flag.svg" alt="Featured Post Logo" class="self-center w-11 aspect-[1.02]"/>
     <h2 class="self-center mt-4 text-4xl text-yellow-400 font-[542]">Featured Post</h2>
     <time class="mt-4 w-full text-xs text-zinc-600" ><%= featuredPost.date.toLocaleString('de-DE', {
@@ -7,7 +7,7 @@
         day: '2-digit',
         year: 'numeric'
         }) %></time>
-    <h3 class="w-full text-xl"><%=featuredPost.title%></h3>
+    <a href="/posts/<%=featuredPost._id%>" class="w-full text-xl hover:underline"><%=featuredPost.title%></a>
     <p class="w-full text-base text-zinc-600"><%=featuredPost.subtitle%></p>
     <img src="<%=featuredPost.mainImage%>" alt="Featured Post Image" class="rounded-2xl mt-2 w-full aspect-[1.52]"/>
     <div class="flex justify-between mt-2 w-full font-medium leading-[150%] text-zinc-600">
@@ -21,7 +21,7 @@
     <p class="mt-3 w-full text-sm">
         <%=featuredPost.previewText%>
     </p>
-    <a href="/posts/<%=featuredPost._id%>" class="justify-center self-end px-4 py-2 bg-yellow-400 rounded-lg shadow-sm">
+    <a href="/posts/<%=featuredPost._id%>" class="mt-2 justify-center self-end px-4 py-2 bg-yellow-400 rounded-lg shadow-sm">
         Read more
     </a>
     <img src="/assets/race-flag.svg" alt="Featured Post Logo" class="self-center mt-4 w-11 aspect-[1.02]"/>

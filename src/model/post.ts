@@ -34,10 +34,12 @@ export const PostSchema = new Schema({
   title: {
     type: String,
     required: true,
+    maxLength: 150,
   },
   subtitle: {
     type: String,
     required: true,
+    maxLength: 100,
   },
   category: {
     type: String,
@@ -59,7 +61,7 @@ export const PostSchema = new Schema({
   previewText: {
     type: String,
     required: true,
-    maxLength: 200,
+    maxLength: 300,
   },
   content: {
     type: String,

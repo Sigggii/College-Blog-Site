@@ -1,93 +1,122 @@
+<%
+const usernameInput = {
+    label: 'Username',
+    id: 'update-username-input',
+    type: 'text',
+    placeholder: 'Username',
+    name: 'username',
+    required: true
+}
+
+const emailInput = {
+    label: 'Email',
+    id: 'update-email-input',
+    type: 'email',
+    placeholder: 'Email',
+    name: 'email',
+    required: true
+}
+
+const passwordInput = {
+    label: 'Password',
+    id: 'update-password-input',
+    type: 'password',
+    placeholder: 'Password',
+    name: 'password',
+    required: true
+}
+
+const confirmPasswordInput = {
+    label: 'Confirm Password',
+    id: 'update-confirm-password-input',
+    type: 'password',
+    placeholder: 'Confirm Password',
+    name: 'confirm-password',
+    required: true
+}
+%>
+
 <script src="/js/admin-console/manage-users.js"></script>
-<section class="p-5 flex flex-col items-start font-medium leading-[150%]">
-    <h2 class="text-3xl text-primary ">Manage Users</h2>
+<section class="mb-10 p-5">
+    <details>
+        <summary class="text-3xl text-primary">
+            Manage Users
+        </summary>
+        <section class="flex flex-col items-start font-medium leading-[150%]">
+            <section id="manage-users" class="flex flex-col max-w-full text-base text-black w-[820px] max-md:mt-10">
+                <section id="select-user-container" class="flex flex-wrap gap-4">
+                    <!-- Modified from here https://flowbite.com/docs/forms/select/ -->
+                    <div class="mt-6">
+                        <label for="user-select" class="mb-1 text-md font-medium text-secondary">Select a User</label>
+                        <select id="user-select" name="article"
+                                class="text-lg block focus:outline-none w-full px-2 pt-4 pb-1 bg-amber-100 focus:bg-amber-200 border-secondary border-b-[1px] border-solid rounded-t-md">
+                            <option value=""></option>
+                            <% for(const user of allUsers){ %>
+                                <option value="<%= JSON.stringify(user) %>"><%= user.email %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div id="manage-user-buttons" class="self-end">
+                        <button onclick="handleEditUser()" class="text-base justify-center px-4 py-1.5
+                    text-black whitespace-nowrap border-solid border-2 border-primary rounded-lg shadow-sm max-md:px-5 mr-2">
+                            Edit Userinfo
+                        </button>
+                        <button onclick="handleEditPassword()" class="text-base justify-center px-4 py-1.5
+                    text-secondary whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5">
+                            Change Password
+                        </button>
+                        <button onclick="handleDeleteUser()"
+                                class="text-base justify-center px-4 py-1.5 text-white whitespace-nowrap bg-orange-600 rounded-lg shadow-sm max-md:px-5">
+                            Delete
+                        </button>
+                    </div>
+                </section>
+                <section id="update-user-container"
+                         class="hidden  max-md:max-w-full">
+                    <form id="edit-userinfo-form"
+                          class="flex flex-col gap-1 mt-6 text-base whitespace-nowrap max-md:flex-wrap max-md:mt-10 max-md:max-w-full">
+                        <div class="flex gap-3">
+                            <input id="userId" class="hidden" disabled/>
+                            <%- include('../general/input-component', {input: usernameInput}) %>
+                            <%- include('../general/input-component', {input: emailInput}) %>
+                        </div>
+                        <div id="edit-user-buttons-container" class="flex gap-3">
+                            <button onclick="handleCancelEditUser()" type="button"
+                                    class="justify-center self-start px-6 py-1.5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
+                                Cancel
+                            </button>
+                            <button type="submit"
+                                    class="justify-center self-start px-6 py-1.5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
+                                Update
+                            </button>
+                        </div>
+                    </form>
+                </section>
+                <section id="update-user-password-container"
+                         class="hidden  max-md:max-w-full">
+                    <form id="edit-user-password-form"
+                          class="flex flex-col gap-1  mt-6 text-base whitespace-nowrap max-md:flex-wrap max-md:mt-10 max-md:max-w-full">
+                        <div class="flex gap-3">
+                            <input id="edit-password-userId" class="hidden" disabled/>
+                            <%- include('../general/input-component', {input: passwordInput}) %>
+                            <%- include('../general/input-component', {input: confirmPasswordInput}) %>
+                        </div>
+                        <div id="edit-password-buttons-container" class="flex gap-3">
+                            <button onclick="handleCancelEditPassword()" type="button"
+                                    class="justify-center self-start px-6 py-1.5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
+                                Cancel
+                            </button>
+                            <button type="submit"
+                                    class="justify-center self-start px-6 py-1.5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
+                                Update
+                            </button>
+                        </div>
+                    </form>
+
+                </section>
+
+            </section>
+        </section>
+    </details>
     <hr class="self-stretch my-2 w-full bg-black border border-black border-solid min-h-[1px] max-md:max-w-full"/>
-    <section id="manage-users" class="flex flex-col max-w-full text-base text-black w-[820px] max-md:mt-10">
-        <section id="select-user-container" class="flex flex-wrap gap-4">
-            <!-- Modified from here https://flowbite.com/docs/forms/select/ -->
-            <div class="mt-6">
-                <label for="user-select" class="mb-1 text-md font-medium text-secondary">Select a User</label>
-                <select id="user-select" name="article"
-                        class="w-full block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid ">
-                    <option value=""></option>
-                    <% for(const user of allUsers){%>
-                        <option value="<%= JSON.stringify(user) %>"><%= user.email %></option>
-                    <% } %>
-                </select>
-            </div>
-            <div id="manage-user-buttons" class="self-end">
-                <button onclick="handleEditUser()" class="text-xl justify-center px-6 py-1.5
-                    text-white whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5">
-                    Edit Userinfo
-                </button>
-                <button onclick="handleEditPassword()" class="text-xl justify-center px-6 py-1.5
-                    text-white whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5">
-                    Change Password
-                </button>
-                <button onclick="handleDeleteUser()" class="text-xl justify-center px-6 py-1.5 text-white whitespace-nowrap bg-orange-600 rounded-lg shadow-sm max-md:px-5">
-                    Delete
-                </button>
-            </div>
-        </section>
-        <section id="update-user-container"
-                 class="hidden  max-md:max-w-full">
-            <form id="edit-userinfo-form"
-                  class="flex gap-5 justify-between mt-12 text-xl whitespace-nowrap max-md:flex-wrap max-md:mt-10 max-md:max-w-full">
-                <input id="userId" class="hidden" disabled/>
-                <label class="block">
-                    Username
-                    <input id="update-username-input" type='text' placeholder="Username"
-                           class="block justify-center items-start  p-4 bg-white rounded-xl border border-black border-solid "
-                           required/>
-                </label>
-                <label class="block">
-                    E-Mail
-                    <input id="update-email-input" type="email" placeholder="E-Mail"
-                           class="block justify-center items-start p-4 underline bg-white rounded-xl border border-black border-solid "
-                           required/>
-                </label>
-                <div id="edit-user-buttons-container" class="block flex">
-                    <button onclick="handleCancelEditUser()" type="button"
-                            class="justify-center self-start px-6 py-1.5 mt-5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                            class="justify-center self-start px-6 py-1.5 mt-5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
-                        Update
-                    </button>
-                </div>
-            </form>
-        </section>
-        <section id="update-user-password-container"
-                 class="hidden  max-md:max-w-full">
-            <form id="edit-user-password-form"
-                  class="flex gap-5 justify-between mt-12 text-xl whitespace-nowrap max-md:flex-wrap max-md:mt-10 max-md:max-w-full">
-                <input id="edit-password-userId" class="hidden" disabled/>
-                <label class="block">
-                    Password
-                    <input id="update-password-input" type='password' placeholder="Password"
-                           class="block justify-center items-start  p-4 bg-white rounded-xl border border-black border-solid "
-                           required/>
-                </label>
-                <label class="block">
-                    Confirm Password
-                    <input id="update-confirm-password-input" type="password" placeholder="Confirm Password"
-                           class="block justify-center items-start p-4 bg-white rounded-xl border border-black border-solid "
-                           required/>
-                </label>
-                <div id="edit-password-buttons-container" class="block flex">
-                    <button onclick="handleCancelEditPassword()" type="button"
-                            class="justify-center self-start px-6 py-1.5 mt-5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                            class="justify-center self-start px-6 py-1.5 mt-5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
-                        Update
-                    </button>
-                </div>
-            </form>
-
-        </section>
-
-    </section>
 </section>

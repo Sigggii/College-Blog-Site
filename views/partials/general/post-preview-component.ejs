@@ -1,18 +1,21 @@
-<article class="flex flex-col px-6 w-full text-black">
-    <time class="self-end text-xs text-zinc-600" ><%= previewPost.date.toLocaleString('de-DE', {
+<article class="flex flex-col w-full text-black shadow-md rounded-2xl p-3">
+    <time class="self-end text-xs text-zinc-600"><%= previewPost.date.toLocaleString('de-DE', {
             month: '2-digit',
             day: '2-digit',
             year: 'numeric'
         }) %></time>
     <div class="flex gap-1.5 font-medium">
-        <img src="<%=previewPost.mainImage%>"
-             alt="Blog post image" class="self-center w-[30%]"/>
+        <a href="/posts/<%= previewPost._id %>" class="self-center w-[30%]">
+            <img src="<%= previewPost.mainImage %>"
+                 class="rounded-2xl"
+                 alt="Blog post image"/>
+        </a>
         <div class="flex flex-col self-start w-[70%]">
-            <h2 class="text-sm leading-5">
-                <%=previewPost.title%>
-            </h2>
-            <p class="mt-4 text-xs leading-4 text-zinc-600">
-                <%=previewPost.subtitle%>
+            <a href="/posts/<%= previewPost._id %>" class="text-md hover:underline leading-5">
+                <%= previewPost.title %>
+            </a>
+            <p class="mt-2 text-xs leading-4 text-zinc-600">
+                <%= previewPost.subtitle %>
             </p>
         </div>
     </div>
@@ -20,13 +23,13 @@
         <div class="flex gap-1">
             <img src="/assets/user-round.svg"
                  alt="Author avatar" class="shrink-0 aspect-square w-[15px]"/>
-            <span><%=previewPost.author.username%></span>
+            <span><%= previewPost.author.username %></span>
         </div>
-        <div><%=previewPost.category%> | <%=previewPost.timeToRead%> mins</div>
+        <div><%= previewPost.category %> | <%= previewPost.timeToRead %> mins</div>
     </div>
-    <hr class="my-1 w-full bg-primary border border-primary border-solid min-h-[1px] max-md:max-w-full"/>
+    <hr class="my-1 w-full bg-primary border border-primary border-solid min-h-[1px]"/>
     <p class="text-sm">
-        <%=previewPost.previewText%>
-        <a href="/posts/<%=previewPost._id%>" class="font-semibold underline">Read more</a>
+        <%= previewPost.previewText %>
+        <a href="/posts/<%= previewPost._id %>" class="font-semibold underline">Read more</a>
     </p>
 </article>

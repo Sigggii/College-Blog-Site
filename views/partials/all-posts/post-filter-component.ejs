@@ -1,16 +1,23 @@
 <script src="/js/post-filter.js"></script>
+<%
+ const titleFilterInput = {
+     label: 'Title',
+     id: 'title-filter',
+     type: 'text',
+     placeholder: 'Title',
+     name: 'title',
+     value: filter.title.value
+ }
+
+ %>
 <div class="flex flex-col">
     <section class="flex flex-col gap-4">
         <hr class="shrink-0 h-px bg-primary border border-primary border-solid"/>
-        <form id="post-filter-form" type="GET" action="/all-posts">
-            <label class="block text-md">
-                Title
-                <input id="title-filter" type="text" placeholder="Title" name="title" value="<%=filter.title.value%>"
-                       class="w-full block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid "/>
-            </label>
+        <form id="post-filter-form" type="GET" action="/all-posts" class="flex flex-col gap-2">
+            <%- include('../general/input-component', {input: titleFilterInput}) %>
             <label class="block text-md">
                 Category
-                <select id="category-filter" name="category" class="w-full block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid ">
+                <select id="category-filter" name="category" class="block focus:outline-none w-full h-full px-2 pt-4 pb-1 bg-amber-100 focus:bg-amber-200 border-secondary border-b-[1px] border-solid rounded-t-md">
                     <option value=""></option>
                     <%for(const category of allCategories){%>
                     <option <%=category === filter.category.value ? 'selected': ''%> value="<%=category%>"><%=category%></option>
@@ -19,7 +26,7 @@
             </label>
             <label class="block text-md">
                 Author
-                <select id="author-filter" name="author" class="w-full block justify-center items-start p-2 bg-white rounded-xl border border-black border-solid ">
+                <select id="author-filter" name="author" class="block focus:outline-none w-full h-full px-2 pt-4 pb-1 bg-amber-100 focus:bg-amber-200 border-secondary border-b-[1px] border-solid rounded-t-md">
                     <option value=""></option>
                     <%for(const author of allAuthors){%>
                         <option <%=author._id.toString() === filter.author.value ? 'selected': ''%> value="<%=author._id%>"><%=author.username%></option>

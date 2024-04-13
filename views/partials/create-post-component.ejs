@@ -18,11 +18,13 @@
             <input id="post-title"
                    type="text"
                    value="<%= isEdit ? editPost.title : '' %>"
+                   maxlength="150"
                    class="justify-center py-3.5 mt-8 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
                    placeholder="Post-Title" aria-label="Post Title" required/>
             <input id="post-subtitle"
                    type="text"
                    value="<%= isEdit ? editPost.subtitle : '' %>"
+                   maxlength="100"
                    class="justify-center py-3.5 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
                    placeholder="Subtitle" aria-label="Subtitle" required/>
             <input id="post-category"
@@ -57,7 +59,8 @@
                 <h2 class="text-lg">Post Preview Text (max. 200 characters)</h2>
                 <textarea id="post-preview-text"
                           type="text"
-                          maxlength="200"
+                          maxlength="300"
+                          rows="3"
                           class="mt-2 whitespace-pre-wrap resize-none justify-center py-3 px-3 w-full text-sm bg-white rounded-xl border border-black border-solid"
                           aria-label="post-preview-text" required><%= isEdit? editPost.previewText: '' %></textarea>
             </div>

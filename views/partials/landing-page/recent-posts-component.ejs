@@ -1,8 +1,8 @@
 <%const recentPosts = posts.slice(1)%>
-<section class="flex flex-col gap-4 px-5 font-medium max-w-[600px]">
-    <h2 class="self-center text-3xl leading-10 text-black">Recent Posts</h2>
+<section class="flex flex-col gap-4 px-5 font-medium max-w-[800px] mt-10">
+    <h2 class="self-center text-3xl leading-10 text-black mb-3">Recent Posts</h2>
     <%for(const post of recentPosts){%>
-        <img class="w-[40px] self-center" src="/assets/motorcycle.svg">
         <%- include('../general/post-preview-component', {previewPost: post}) %>
+        <img class="w-[40px] self-center" src="/assets/motorcycle.svg">
     <%}%>
 </section>

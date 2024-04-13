@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('../partials/head'); %>
-<body>
+<body class="min-h-screen flex flex-col">
 <%- include('../partials/header') %>
 <section class="flex flex-col items-center justify-center">
     <% if(posts.length > 0){ %>
@@ -15,5 +15,6 @@
     <% } %>
 </section>
 <%- include('../partials/general/alert-component') %>
+<%- include('../partials/general/footer') %>
 </body>
 </html>

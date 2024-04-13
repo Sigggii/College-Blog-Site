@@ -1,0 +1,40 @@
+<article class="flex flex-col min-w-[200px] max-w-[500px] text-black shadow-md rounded-2xl p-3">
+    <time class="self-end text-xs text-zinc-600" ><%= rescentPost.date.toLocaleString('de-DE', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric'
+        }) %></time>
+    <div class="flex gap-1.5 font-medium align-top">
+        <img src="<%=rescentPost.mainImage%>"
+             alt="Blog post image" class=" w-[100px] rounded-2xl"/>
+        <div class="flex flex-col self-start">
+            <a href="/posts/<%=rescentPost._id%>" class="text-sm hover:underline leading-5">
+                <%=rescentPost.title.substring(0, 100)%><%=rescentPost.title.length >= 100 ? '...' : ''%>
+            </a>
+            <p class="mt-2 text-xs leading-4 text-zinc-600">
+                <%=rescentPost.subtitle.substring(0, 50)%><%=rescentPost.subtitle.length >= 50 ? '...' : ''%>
+            </p>
+        </div>
+    </div>
+    <div class="flex mt-1.5 justify-between text-sm">
+        <div class="flex gap-1">
+            <img src="/assets/user-round.svg"
+                 alt="Author avatar" class="shrink-0 aspect-square w-[15px]"/>
+            <span><%=rescentPost.author.username%></span>
+        </div>
+        <div><%=rescentPost.category%> | <%=rescentPost.timeToRead%> mins</div>
+    </div>
+    <hr class="my-1 w-full bg-primary border border-primary border-solid min-h-[1px]"/>
+    <p class="text-sm">
+    <div class="flex gap-3 mt-3 whitespace-nowrap justify-end">
+        <button onclick="handleEditRescentPost('<%= rescentPost._id.toString() %>')"
+                class="justify-center px-6 py-1.5 text-black bg-primary rounded-lg shadow-sm max-md:px-5">
+            Edit
+        </button>
+        <button onclick="handleDeleteRescentPost('<%= rescentPost._id.toString() %>')"
+                class="justify-center px-6 py-1.5 text-white bg-orange-600 rounded-lg shadow-sm max-md:px-5">
+            Delete
+        </button>
+    </div>
+    </p>
+</article>

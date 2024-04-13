@@ -41,7 +41,7 @@ const setImage = () => {
 const updatePost = () => {
   const title = document.getElementById('post-title').value
   const subtitle = document.getElementById('post-subtitle').value
-  const category = document.getElementById('post-subtitle').value
+  const category = document.getElementById('post-category').value
   const timeToRead = document.getElementById('post-time-to-read').value
   const imageLink = document.getElementById('post-image-link').value
   const previewText = document.getElementById('post-preview-text').value
