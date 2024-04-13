@@ -5,7 +5,8 @@
   "main": "dist/server.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "npx tsc && npm run tailwind:css && node dist/server.js ",
+    "start": "node dist/server.js ",
+    "postinstall": "tsc && npm run tailwind:css",
     "dev": "nodemon -e js,ejs src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tailwind:css": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css"
