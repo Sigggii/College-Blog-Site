@@ -14,6 +14,7 @@ userRouter.put('/:userId', async (req: Request, res: Response, next: NextFunctio
   const editData = {
     username: req.body.username,
     email: req.body.email,
+    role: req.body.role,
   }
 
   await UserController.editUser(userId, editData)

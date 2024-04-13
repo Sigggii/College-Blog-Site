@@ -31,6 +31,14 @@ const handleEditUser = () => {
   document.getElementById('userId').value = userToEdit._id
   document.getElementById('update-username-input').value = userToEdit.username
   document.getElementById('update-email-input').value = userToEdit.email
+  // make role of user in select selected
+  const roleSelect = document.getElementById('role-select')
+  for (const option of roleSelect.options) {
+    if (option.value === userToEdit.role) {
+      option.selected = true
+      break
+    }
+  }
 
   //make inputs visible
   document.getElementById('update-user-container').classList.remove('hidden')
@@ -67,6 +75,7 @@ const handeUpdateUserInfo = () => {
   const editData = {
     username: document.getElementById('update-username-input').value,
     email: document.getElementById('update-email-input').value,
+    role: document.getElementById('role-select').value,
   }
 
   const handeEditUserSuccess = () => {

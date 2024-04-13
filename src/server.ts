@@ -67,12 +67,14 @@ app.get('/admin-console', async (req: Request, res: Response) => {
   const postsLastDay = await PostController.getPostsOfLastDay()
   const allUsers = await UserController.getAllUsers()
   const sectionOpen = req.query.section as string
+  const roles = Object.values(Role)
 
   res.render('pages/admin-console', {
     allPosts: allPosts,
     postsLastDay: postsLastDay,
     allUsers: allUsers,
     section: sectionOpen,
+    roles: roles,
   })
 })
 

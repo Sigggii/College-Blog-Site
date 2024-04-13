@@ -8,61 +8,105 @@
         overflow: scroll;
     }
 </style>
+
+<%
+const titleInput = {
+    label: 'Title',
+    id: 'post-title',
+    type: 'text',
+    placeholder: 'Title',
+    name: 'title',
+    value: isEdit ? editPost.title : '',
+    maxLength: 150,
+    required: true
+}
+
+const subtitleInput = {
+    label: 'Subtitle',
+    id: 'post-subtitle',
+    type: 'text',
+    placeholder: 'Subtitle',
+    name: 'subtitle',
+    value: isEdit ? editPost.subtitle : '',
+    maxLength: 100,
+    required: true
+}
+
+const categoryInput = {
+    label: 'Category',
+    id: 'post-category',
+    type: 'text',
+    placeholder: 'Category',
+    name: 'category',
+    value: isEdit ? editPost.category : '',
+    size: 30,
+    maxLength: 30,
+    required: true
+}
+
+const timeToReadInput = {
+    label: 'Time to read',
+    id: 'post-time-to-read',
+    type: 'number',
+    placeholder: 'Time to read',
+    name: 'timeToRead',
+    value: isEdit ? editPost.timeToRead : '',
+    max: 120,
+    min: 1,
+    required: true
+}
+
+const imageLinkInput = {
+    label: '',
+    id: 'post-image-link',
+    type: 'text',
+    placeholder: 'Image Link',
+    name: 'image-link',
+    value: isEdit ? editPost.mainImage : '',
+    required: true
+}
+%>
+
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.snow.css" rel="stylesheet"/>
-<section class="mb-10 px-5 text-2xl text-black max-w-[900px] ">
-    <form id="create-post-form">
-        <section>
+<section class="mb-10 px-5 text-base text-black max-w-[800px] lg:w-[800px] mx-auto ">
+    <form id="create-post-form" class="w-full">
+        <section class="w-full flex flex-col gap-3">
             <input id="isEditPost" value="<%= isEdit ? 'true' : 'false' %>" class="hidden" disabled/>
             <input id="editPostId" value="<%= isEdit ? editPost._id : '' %>" class="hidden" disabled/>
             <h1 class="w-full text-6xl font-bold text-primary"> <%= isEdit ? 'Edit Post' : 'Create Post' %></h1>
-            <input id="post-title"
-                   type="text"
-                   value="<%= isEdit ? editPost.title : '' %>"
-                   maxlength="150"
-                   class="justify-center py-3.5 mt-8 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
-                   placeholder="Post-Title" aria-label="Post Title" required/>
-            <input id="post-subtitle"
-                   type="text"
-                   value="<%= isEdit ? editPost.subtitle : '' %>"
-                   maxlength="100"
-                   class="justify-center py-3.5 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
-                   placeholder="Subtitle" aria-label="Subtitle" required/>
-            <input id="post-category"
-                   type="text"
-                   value="<%= isEdit ? editPost.category : '' %>"
-                   class="justify-center py-3 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
-                   placeholder="Category" aria-label="Category" required/>
-            <input id="post-time-to-read"
-                   type="text"
-                   value="<%= isEdit ? editPost.timeToRead : '' %>"
-                   class="justify-center py-3 mt-5 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
-                   placeholder="Time to read" aria-label="Time to read" required/>
+            <%- include('./general/input-component', {input: titleInput }) %>
+            <%- include('./general/input-component', {input: subtitleInput }) %>
+            <%- include('./general/input-component', {input: categoryInput }) %>
+            <div class="flex gap-3 align-middle">
+                <%- include('./general/input-component', {input: timeToReadInput }) %>
+                <span class="mt-auto text-xl">min</span>
+            </div>
+
             <h2 class="mt-6 w-full text-primary text-3xl">Main Image</h2>
             <img id="main-image"
 
                  src="<%= isEdit ? editPost.mainImage : ' /assets/main-image-placeholder.png' %>"
-                 alt="Main post image" class="self-start mt-1 w-full aspect-[1.49] rounded-2xl"/>
+                 alt="Main post image" class="w-full self-start mt-1 rounded-2xl max-w-[800px] lg:w-[800px]"/>
             <div class="flex gap-5 mt-2 w-full text-base font-medium leading-6">
                 <label for="image-link" class="sr-only">Image-Link</label>
-                <input id="post-image-link" name="image-link" placeholder="Image-Link"
-                       type="text"
-                       value="<%= isEdit ? editPost.mainImage : '' %>"
-                       class="justify-center py-3 px-3 w-full whitespace-nowrap bg-white rounded-xl border border-black border-solid"
-                       required></input>
+                <div class="w-full">
+                    <%- include('./general/input-component', {input: imageLinkInput }) %>
+                </div>
                 <button onclick="setImage()"
                         type="button"
-                        class="justify-center px-6 py-3.5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
+                        class="justify-center px-6 py-2.5 whitespace-nowrap bg-primary rounded-lg shadow-sm">
                     Set Image
                 </button>
             </div>
             <div class="mt-8">
-                <h2 class="text-lg">Post Preview Text (max. 200 characters)</h2>
+                <h2 class="text-base">Post Preview Text (max. 200 characters)</h2>
                 <textarea id="post-preview-text"
                           type="text"
                           maxlength="300"
                           rows="3"
-                          class="mt-2 whitespace-pre-wrap resize-none justify-center py-3 px-3 w-full text-sm bg-white rounded-xl border border-black border-solid"
-                          aria-label="post-preview-text" required><%= isEdit? editPost.previewText: '' %></textarea>
+                          class="bg-amber-100 focus:bg-amber-200 mt-1 whitespace-pre-wrap resize-none justify-center py-3 px-3 w-full text-sm rounded-t-xl border-b border-black border-solid"
+                          aria-label="post-preview-text"
+                          required><%= isEdit ? editPost.previewText : '' %></textarea>
             </div>
         </section>
         <!-- Create the editor container -->

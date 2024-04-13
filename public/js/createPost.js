@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
   // init the quill editor
   const toolbarOptions = [
     [{ header: [1, 2, 3, false] }],
-    ['bold', 'italic', 'underline', 'link'],
-    ['image', 'code-block', 'align', { list: 'ordered' }, { list: 'bullet' }],
+    ['bold', 'italic', 'underline'],
+    ['image'],
   ]
 
   quill = new Quill('#editor', {

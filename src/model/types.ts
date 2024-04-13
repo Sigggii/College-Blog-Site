@@ -27,7 +27,7 @@ export type Post = {
   title: string
   subtitle: string
   category: string
-  timeToRead: string
+  timeToRead: number
   mainImage: string
   author: User['_id']
   previewText: string

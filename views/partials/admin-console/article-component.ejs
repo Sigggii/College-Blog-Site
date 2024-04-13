@@ -1,18 +1,20 @@
-<article class="flex flex-col min-w-[200px] max-w-[500px] text-black shadow-md rounded-2xl p-3">
-    <time class="self-end text-xs text-zinc-600" ><%= rescentPost.date.toLocaleString('de-DE', {
+<article class="flex flex-col min-w-[350px] max-w-[500px] text-black shadow-md rounded-2xl p-3">
+    <time class="self-end text-xs text-zinc-600"><%= rescentPost.date.toLocaleString('de-DE', {
             month: '2-digit',
             day: '2-digit',
             year: 'numeric'
         }) %></time>
     <div class="flex gap-1.5 font-medium align-top">
-        <img src="<%=rescentPost.mainImage%>"
-             alt="Blog post image" class=" w-[100px] rounded-2xl"/>
+        <a href="/posts/<%= rescentPost._id %>" class="self-center w-[30%]">
+            <img src="<%= rescentPost.mainImage %>"
+                 alt="Blog post image" class=" w-[100px] rounded-2xl"/>
+        </a>
         <div class="flex flex-col self-start">
-            <a href="/posts/<%=rescentPost._id%>" class="text-sm hover:underline leading-5">
-                <%=rescentPost.title.substring(0, 100)%><%=rescentPost.title.length >= 100 ? '...' : ''%>
+            <a href="/posts/<%= rescentPost._id %>" class="text-sm hover:underline leading-5">
+                <%= rescentPost.title.substring(0, 100) %><%= rescentPost.title.length >= 100 ? '...' : '' %>
             </a>
             <p class="mt-2 text-xs leading-4 text-zinc-600">
-                <%=rescentPost.subtitle.substring(0, 50)%><%=rescentPost.subtitle.length >= 50 ? '...' : ''%>
+                <%= rescentPost.subtitle.substring(0, 50) %><%= rescentPost.subtitle.length >= 50 ? '...' : '' %>
             </p>
         </div>
     </div>
@@ -20,9 +22,9 @@
         <div class="flex gap-1">
             <img src="/assets/user-round.svg"
                  alt="Author avatar" class="shrink-0 aspect-square w-[15px]"/>
-            <span><%=rescentPost.author.username%></span>
+            <span><%= rescentPost.author.username %></span>
         </div>
-        <div><%=rescentPost.category%> | <%=rescentPost.timeToRead%> mins</div>
+        <div><%= rescentPost.category %> | <%= rescentPost.timeToRead %> mins</div>
     </div>
     <hr class="my-1 w-full bg-primary border border-primary border-solid min-h-[1px]"/>
     <p class="text-sm">

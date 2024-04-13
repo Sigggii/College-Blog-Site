@@ -6,10 +6,14 @@
     </a>
     <nav class="max-md:hidden flex gap-8 items-center my-auto text-md text-black max-md:flex-wrap">
         <a href="/all-posts" class="self-stretch my-auto">Posts</a>
-        <a href="/create-post" class="self-stretch my-auto">Create Post</a>
-        <a href="/admin-console" class="self-stretch my-auto">Admin Console</a>
-        <button onclick="<%= loggedIn? 'onLogout()' : 'onLogin()' %>"
-           class="justify-center self-stretch px-6 py-3.5 text-base whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5"><%= loggedIn ? 'Logout' : 'Login' %></button>
+        <% if(loggedIn && (user.role === 'ADMIN' || user.role === 'AUTHOR')){ %>
+            <a href="/create-post" class="self-stretch my-auto">Create Post</a>
+        <% } %>
+        <% if(loggedIn && user.role === 'ADMIN'){ %>
+            <a href="/admin-console" class="self-stretch my-auto">Admin Console</a>
+        <% } %>
+        <button onclick="<%= loggedIn ? 'onLogout()' : 'onLogin()' %>"
+                class="justify-center self-stretch px-6 py-3.5 text-base whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5"><%= loggedIn ? 'Logout' : 'Login' %></button>
     </nav>
     <div class="md:hidden flex items-center">
         <button id="menu-btn" class="focus:outline-none" onclick="handleOpenMenu()">
@@ -30,16 +34,25 @@
             </button>
             <nav>
                 <ul class="text-white text-2xl space-y-4">
-                    <li><a href="/posts" class="hover:text-primary hover:underline underline-offset-4 flex justify-center">Posts
+                    <li><a href="/posts"
+                           class="hover:text-primary hover:underline underline-offset-4 flex justify-center">Posts
+                        </a></li>
+                    <% if(loggedIn && (user.role === 'ADMIN' || user.role === 'AUTHOR')){ %>
+                        <li><a href="/create-post"
+                               class="hover:text-primary hover:underline underline-offset-4 flex justify-center">Create
+                                Post
                             </a></li>
-                    <li><a href="/create-post" class="hover:text-primary hover:underline underline-offset-4 flex justify-center">Create Post
+                    <% } %>
+                    <% if(loggedIn && user.role === 'ADMIN'){ %>
+                        <li><a href="/admin-console"
+                               class="hover:text-primary hover:underline underline-offset-4 flex justify-center">Admin
+                                Console
                             </a></li>
-                    <li><a href="/admin-console" class="hover:text-primary hover:underline underline-offset-4 flex justify-center">Admin Console
-                            </a></li>
+                    <% } %>
                 </ul>
                 <div class="mt-6 flex justify-center">
-                    <button onclick="<%= loggedIn? 'onLogout()' : 'onLogin()' %>"
-                       class=" justify-center self-stretch px-6 py-3.5 text-base whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5"><%= loggedIn ? 'Logout' : 'Login' %></button>
+                    <button onclick="<%= loggedIn ? 'onLogout()' : 'onLogin()' %>"
+                            class=" justify-center self-stretch px-6 py-3.5 text-base whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5"><%= loggedIn ? 'Logout' : 'Login' %></button>
                 </div>
             </nav>
         </div>

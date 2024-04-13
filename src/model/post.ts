@@ -44,10 +44,12 @@ export const PostSchema = new Schema({
   category: {
     type: String,
     required: true,
+    maxLength: 30,
   },
   timeToRead: {
-    type: String,
+    type: Number,
     required: true,
+    max: 120,
   },
   mainImage: {
     type: String,

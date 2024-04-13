@@ -14,3 +14,8 @@ p {
     font-size: 1.1em;
     line-height: 1.7em;
 }
+
+img {
+    width: 100%;
+    border-radius: 1rem/* 16px */;
+}
