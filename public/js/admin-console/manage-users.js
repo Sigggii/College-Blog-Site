@@ -47,7 +47,8 @@ const handleEditPassword = () => {
 
 const handleDeleteUser = () => {
   const handleDeleteSuccess = () => {
-    window.location.reload()
+    //reload page to update page after post was deleted, keep articles section open
+    window.location.assign('/admin-console?section=users')
   }
   const user = JSON.parse(document.getElementById('user-select').value)
   callDeleteUser(user._id, handleDeleteSuccess)
@@ -70,7 +71,8 @@ const handeUpdateUserInfo = () => {
 
   const handeEditUserSuccess = () => {
     //Update Page after User was updated
-    window.location.reload()
+    //reload page to update page after post was deleted, keep articles section open
+    window.location.assign('/admin-console?section=users')
   }
 
   callEditUser(userId, editData, handeEditUserSuccess)

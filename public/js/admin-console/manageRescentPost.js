@@ -4,8 +4,8 @@ const handleEditRescentPost = (postId) => {
 
 const handleDeleteRescentPost = (postId) => {
   const handleDeletePostSuccess = (postId) => {
-    //reload page to update page after post was deleted
-    window.location.reload()
+    //reload page to update page after post was deleted, keep articles section open
+    window.location.assign('/admin-console?section=articles')
   }
   callDeletePost(postId, handleDeletePostSuccess)
 }

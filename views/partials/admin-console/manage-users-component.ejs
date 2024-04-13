@@ -38,7 +38,7 @@ const confirmPasswordInput = {
 
 <script src="/js/admin-console/manage-users.js"></script>
 <section class="mb-10 p-5">
-    <details>
+    <details <%=section && section === 'users' ? 'open' : ''%>>
         <summary class="text-3xl text-primary">
             Manage Users
         </summary>

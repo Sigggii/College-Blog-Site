@@ -1,6 +1,6 @@
 <script src="/js/admin-console/manage-articles.js"></script>
 <section class="mb-3 p-5">
-    <details>
+    <details <%=section && section === 'articles' ? 'open' : ''%>>
         <summary class="text-3xl text-primary">
             Manage Articles
         </summary>
@@ -40,7 +40,7 @@
                     <section id="recent-articles-container"
                              class="flex gap-2">
                         <% for(const rescentPost of postsLastDay){ %>
-                            <%- include('./article-component-2', {rescentPost: rescentPost}) %>
+                            <%- include('./article-component', {rescentPost: rescentPost}) %>
                         <% } %>
                     </section>
                 </section>

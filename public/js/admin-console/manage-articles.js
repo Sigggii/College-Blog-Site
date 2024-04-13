@@ -27,8 +27,8 @@ const handleEditPost = () => {
 
 const handleDeletePost = () => {
   const handleDeletePostSuccess = () => {
-    //reload page after post was deleted
-    window.location.reload()
+    //reload page to update page after post was deleted, keep articles section open
+    window.location.assign('/admin-console?section=articles')
   }
 
   const postId = document.getElementById('article-select').value
