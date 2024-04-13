@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "concurrently \"npx tsc --watch\" \"ts-node src/server.ts\" \"npm run tailwind:css\"",
+    "start": "npm install && concurrently \"npx tsc --watch\" \"ts-node src/server.ts\" \"npm run tailwind:css\"",
     "dev": "nodemon -e js,ejs src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tailwind:css": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css"
