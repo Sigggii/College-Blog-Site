@@ -73,11 +73,11 @@ const imageLinkInput = {
             <input id="isEditPost" value="<%= isEdit ? 'true' : 'false' %>" class="hidden" disabled/>
             <input id="editPostId" value="<%= isEdit ? editPost._id : '' %>" class="hidden" disabled/>
             <h1 class="w-full text-6xl font-bold text-primary"> <%= isEdit ? 'Edit Post' : 'Create Post' %></h1>
-            <%- include('./general/input-component', {input: titleInput }) %>
-            <%- include('./general/input-component', {input: subtitleInput }) %>
-            <%- include('./general/input-component', {input: categoryInput }) %>
+            <%- include('../general/input-component', {input: titleInput }) %>
+            <%- include('../general/input-component', {input: subtitleInput }) %>
+            <%- include('../general/input-component', {input: categoryInput }) %>
             <div class="flex gap-3 align-middle">
-                <%- include('./general/input-component', {input: timeToReadInput }) %>
+                <%- include('../general/input-component', {input: timeToReadInput }) %>
                 <span class="mt-auto text-xl">min</span>
             </div>
 
@@ -89,7 +89,7 @@ const imageLinkInput = {
             <div class="flex gap-5 mt-2 w-full text-base font-medium leading-6">
                 <label for="image-link" class="sr-only">Image-Link</label>
                 <div class="w-full">
-                    <%- include('./general/input-component', {input: imageLinkInput }) %>
+                    <%- include('../general/input-component', {input: imageLinkInput }) %>
                 </div>
                 <button onclick="setImage()"
                         type="button"

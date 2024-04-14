@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head'); %>
+<%- include('../partials/general/head'); %>
 <body class="min-h-screen flex flex-col">
-<%- include('../partials/header') %>
+<%- include('../partials/general/header') %>
 <section class="flex flex-col p-5 mx-auto w-full bg-white max-w-[800px]">
     <section class="flex flex-col w-full text-xl text-black">
         <div class="flex justify-between gap-0 self-start ml-3.5 text-4xl py-1">
@@ -14,7 +14,7 @@
     <section id="filter-container" class="mt-4">
         <%- include('../partials/all-posts/post-filter-component') %>
     </section>
-    <section id="posts-container" class="flex gap-4 flex-col justify-center">
+    <section id="posts-container" class="flex gap-4 mt-10 flex-col justify-center">
         <%for(const post of posts){%>
             <img class="w-[40px] self-center" src="/assets/motorcycle.svg">
             <%- include('../partials/general/post-preview-component', {previewPost: post}) %>

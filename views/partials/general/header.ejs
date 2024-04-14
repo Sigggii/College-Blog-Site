@@ -1,7 +1,7 @@
 <script src="/js/header.js"></script>
-<header class="flex justify-between px-10 py-4 font-medium bg-white border-b-2 border-primary border-solid leading-[150%] max-md:flex-wrap max-md:px-5 mb-5">
+<header class="flex justify-between px-10 font-medium bg-white border-b-2 border-primary border-solid leading-[150%] max-md:flex-wrap max-md:px-5 mb-5">
     <a href="/" class="cursor-pointer flex gap-6 text-2xl text-primary">
-        <img src="/assets/curvy-road.png" alt="Curvy Roads logo" class="shrink-0 aspect-[0.91] w-[40px]"/>
+        <img src="/assets/curvy-road.png" alt="Curvy Roads logo" class="my-auto h-[30px] w-[30px]"/>
         <span class="flex-auto my-auto text-3xl">Curvy Roads</span>
     </a>
     <nav class="max-md:hidden flex gap-8 items-center my-auto text-md text-black max-md:flex-wrap">
@@ -12,8 +12,14 @@
         <% if(loggedIn && user.role === 'ADMIN'){ %>
             <a href="/admin-console" class="self-stretch my-auto">Admin Console</a>
         <% } %>
-        <button onclick="<%= loggedIn ? 'onLogout()' : 'onLogin()' %>"
-                class="justify-center self-stretch px-6 py-3.5 text-base whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5"><%= loggedIn ? 'Logout' : 'Login' %></button>
+        <span class="flex flex-col">
+            <% if (loggedIn){ %>
+            <span class="absolute mt-0 text-primary text-xs block"><%= user.username %> | <%= user.role %></span>
+            <% } %>
+            <button onclick="<%= loggedIn ? 'onLogout()' : 'onLogin()' %>"
+                    class="my-4 justify-center self-stretch px-6 py-2 text-base whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5"><%= loggedIn ? 'Logout' : 'Login' %></button>
+        </span>
+
     </nav>
     <div class="md:hidden flex items-center">
         <button id="menu-btn" class="focus:outline-none" onclick="handleOpenMenu()">
@@ -50,9 +56,12 @@
                             </a></li>
                     <% } %>
                 </ul>
-                <div class="mt-6 flex justify-center">
+                <div class="mt-6 flex flex-col gap-2 justify-center">
+                    <% if (loggedIn){ %>
+                    <span class="text-primary mx-auto block"><%= user.username %> | <%= user.role %></span>
+                    <% } %>
                     <button onclick="<%= loggedIn ? 'onLogout()' : 'onLogin()' %>"
-                            class=" justify-center self-stretch px-6 py-3.5 text-base whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5"><%= loggedIn ? 'Logout' : 'Login' %></button>
+                            class="mx-auto justify-center self-stretch px-6 py-3.5 text-base whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5"><%= loggedIn ? 'Logout' : 'Login' %></button>
                 </div>
             </nav>
         </div>

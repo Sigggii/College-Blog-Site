@@ -605,6 +605,10 @@ span[contenteditable]:empty:not(:focus):before {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
 }
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 .my-auto {
   margin-top: auto;
   margin-bottom: auto;
@@ -641,6 +645,9 @@ span[contenteditable]:empty:not(:focus):before {
 }
 .mr-2 {
   margin-right: 0.5rem;
+}
+.mt-0 {
+  margin-top: 0px;
 }
 .mt-1 {
   margin-top: 0.25rem;
@@ -687,9 +694,6 @@ span[contenteditable]:empty:not(:focus):before {
 .hidden {
   display: none;
 }
-.aspect-\[0\.91\] {
-  aspect-ratio: 0.91;
-}
 .aspect-\[0\.9\] {
   aspect-ratio: 0.9;
 }
@@ -719,6 +723,9 @@ span[contenteditable]:empty:not(:focus):before {
 }
 .h-8 {
   height: 2rem;
+}
+.h-\[30px\] {
+  height: 30px;
 }
 .h-full {
   height: 100%;
@@ -1082,10 +1089,6 @@ span[contenteditable]:empty:not(:focus):before {
 .py-3\.5 {
   padding-top: 0.875rem;
   padding-bottom: 0.875rem;
-}
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 .py-5 {
   padding-top: 1.25rem;
