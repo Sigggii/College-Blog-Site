@@ -3,6 +3,8 @@ import { Role, User } from './types'
 import bcrypt from 'bcrypt'
 
 const Schema = mongoose.Schema
+
+//  Define the schema for the User model
 export const UserSchema = new Schema({
   username: {
     type: String,

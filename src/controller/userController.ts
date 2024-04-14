@@ -27,7 +27,10 @@ type UserController = {
 // saltRound for bcrypt
 const saltRounds = 10
 
-// Create new User
+/**
+ * Create / Signup a new User
+ * @param user
+ */
 const signUp: UserController['signUp'] = async (user) => {
   const isEmailAlreadyUsed = await UserModel.exists({ email: user.email })
   if (isEmailAlreadyUsed) {
@@ -40,8 +43,12 @@ const signUp: UserController['signUp'] = async (user) => {
   return { user: createdUser }
 }
 
-// Check if given user password is the same as password saved in database
+/**
+ * Sign in a user
+ * @param user
+ */
 const signIn: UserController['signIn'] = async (user) => {
+  // Check if given user password is the same as password saved in database
   const foundUser = await UserModel.findOne({ email: user.email })
   if (!foundUser) {
     throw new BlogSiteError('INVALID_CREDENTIALS')
@@ -58,20 +65,36 @@ const signIn: UserController['signIn'] = async (user) => {
   throw new BlogSiteError('INVALID_CREDENTIALS')
 }
 
+/**
+ * Get a user by userId
+ * @param userId
+ */
 const getUser: UserController['getUser'] = async (userId: string): Promise<User | null> => {
   return UserModel.findOne({ _id: userId })
 }
 
+/**
+ *  Get all users
+ */
 const getAllUser: UserController['getAllUsers'] = async () => {
   return await UserModel.find().sort({ email: -1 }).exec()
 }
 
+/**
+ * Delete a user
+ * @param userId
+ */
 const deleteUser: UserController['deleteUser'] = async (userId: string) => {
   // Delete all Posts of the user before deleting the user
   await PostModel.deleteMany({ author: userId })
   await UserModel.findOneAndDelete({ _id: userId }).exec()
 }
 
+/**
+ * Edit a user
+ * @param userId
+ * @param editData
+ */
 const editUser: UserController['editUser'] = async (userId: string, editData: EditUser) => {
   const userToEdit = await UserModel.findOne({ _id: userId })
   if (!userToEdit) throw new BlogSiteError('POST_NOT_FOUND')
@@ -79,6 +102,11 @@ const editUser: UserController['editUser'] = async (userId: string, editData: Ed
   await userToEdit.save()
 }
 
+/**
+ * Change password of a user
+ * @param userId
+ * @param password
+ */
 const changePassword: UserController['changePassword'] = async (userId: string, password) => {
   const passwordHash = bcrypt.hashSync(password, saltRounds)
   await UserModel.findOneAndUpdate({ _id: userId }, { $set: { password: passwordHash } })

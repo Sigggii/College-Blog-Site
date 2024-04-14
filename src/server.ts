@@ -22,8 +22,10 @@ if (!mongodb_conn) {
   throw new Error('No MONGO_DB_CONNECTION_STRING env variable set')
 }
 
+// connect to mongodb
 mongoose.connect(mongodb_conn)
 
+// Create a new Express application
 const app: Express = express()
 const port = process.env.PORT || 3000
 
@@ -38,8 +40,10 @@ app.use(cookieParser())
 // Check if user if authenticated and if not check if user tries to access restricted site
 app.use('/', Authenticator(securedRoutes))
 
+// Set api routes
 app.use('/api/v1', apiRouter)
 
+// Set page routes
 app.get('/', async (req: Request, res: Response) => {
   const posts = await PostController.getLastNPosts(10)
   res.render('pages/index', { posts: posts })
@@ -129,5 +133,5 @@ app.get('/all-posts', async (req: Request, res: Response) => {
 app.use(ErrorHandler)
 
 app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`)
+  console.log(`[server]: Server is running`)
 })

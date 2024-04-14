@@ -14,9 +14,9 @@ export type SecuredRoute = {
 
 export type SecuredRoutes = SecuredRoute[]
 
+// Middleware which checks if user is authenticated and authorized to access a route
 export const Authenticator =
   (securedRoutes: SecuredRoutes) => async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.path)
     // set locals.loggedIn which is accessable by ejs templates to false. Will be set to true in case user is authenticated
     res.locals.loggedIn = false
     //Check if current route is secured, and if yes get route
@@ -37,7 +37,14 @@ export const Authenticator =
     return next()
   }
 
-//Return true if authenticated, else false
+/**
+ * Authenticate user by checking if jwt token is valid and if user exists in database
+ *
+ * @param req request object
+ * @param res response object
+ *
+ * @return true if user is authenticated, else false
+ */
 const authenticate = async (req: Request, res: Response): Promise<boolean> => {
   // Get jwt token
   const token = req.cookies[jwt_identifier]
@@ -73,8 +80,6 @@ const authenticate = async (req: Request, res: Response): Promise<boolean> => {
  * @throws AuthorizationError if user is not authorized
  */
 const authorize = (securedRoute: SecuredRoute, user: User) => {
-  console.log(securedRoute)
-  console.log(user.role)
   if (!securedRoute.roles.includes(user.role)) {
     throw new AuthorizationError()
   }

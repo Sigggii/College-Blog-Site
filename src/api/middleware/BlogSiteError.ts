@@ -9,6 +9,7 @@ type ErrorInfo = {
   message: string
 }
 
+// Error messages and status codes
 const errors: Record<ErrorName, ErrorInfo> = {
   INVALID_CREDENTIALS: { status: 401, message: 'Please check if your credentials are correct' },
   EMAIL_ALREADY_EXISTS: { status: 400, message: 'Please use another email' },
@@ -16,6 +17,9 @@ const errors: Record<ErrorName, ErrorInfo> = {
   USER_NOT_FOUND: { status: 404, message: 'User not found' },
 }
 
+/** BlogSiteError
+ *  Error class for BlogSite
+ */
 export class BlogSiteError extends Error {
   name: ErrorName
   status: number

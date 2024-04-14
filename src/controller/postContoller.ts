@@ -39,11 +39,19 @@ type PostContoller = {
   getAllCategories: () => Promise<String[]>
 }
 
+/**
+ * Create a post
+ * @param post
+ */
 const createPost: PostContoller['createPost'] = async (post: CreatePost) => {
   const createdPost = await PostModel.create(post)
   return createdPost._id
 }
 
+/**
+ * Get a post by postID
+ * @param postID
+ */
 const getPost: PostContoller['getPost'] = async (postID: string) => {
   const post = await PostModel.findById({ _id: postID })
     .populate('author')
@@ -52,6 +60,12 @@ const getPost: PostContoller['getPost'] = async (postID: string) => {
   return post as unknown as PostWithAuthorAndCommentAuthor
 }
 
+/**
+ * Edit a post
+ * @param postID
+ * @param editData
+ * @param requestUser
+ */
 const editPost: PostContoller['editPost'] = async (
   postID: string,
   editData: EditPost,
@@ -70,6 +84,11 @@ const editPost: PostContoller['editPost'] = async (
   postToEdit.save()
 }
 
+/**
+ * Delete a post
+ * @param postID
+ * @param requestUser
+ */
 const deletePost: PostContoller['deletePost'] = async (postID: string, requestUser: User) => {
   // check if post with given postid belongs to user who made the request or user is admin ->
   // ensure that no one else can delete post
@@ -80,10 +99,20 @@ const deletePost: PostContoller['deletePost'] = async (postID: string, requestUs
   await PostModel.findOneAndDelete({ _id: postID }).exec()
 }
 
+/**
+ * Add a comment to a post
+ * @param comment
+ */
 const addComment: PostContoller['addComment'] = async (comment: AddComment) => {
   await PostModel.findByIdAndUpdate(comment.postID, { $push: { comments: comment } })
 }
 
+/**
+ * Update a comment
+ * @param commentId
+ * @param content
+ * @param requestUser
+ */
 const updateComment: PostContoller['updateComment'] = async (
   commentId: string,
   content: string,
@@ -105,6 +134,11 @@ const updateComment: PostContoller['updateComment'] = async (
   )
 }
 
+/**
+ * Delete a comment
+ * @param commentId
+ * @param requestUser
+ */
 const deleteComment: PostContoller['deleteComment'] = async (
   commentId: string,
   requestUser: User,
@@ -125,6 +159,9 @@ const deleteComment: PostContoller['deleteComment'] = async (
   )
 }
 
+/**
+ * Get all posts of the last day
+ */
 const getPostsOfLastDay: PostContoller['getPostsOfLastDay'] = async () => {
   const now = new Date()
   const date24HoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000)
@@ -133,6 +170,10 @@ const getPostsOfLastDay: PostContoller['getPostsOfLastDay'] = async () => {
     .exec()) as unknown as PostWithAuthor[]
 }
 
+/**
+ * Get the last N posts
+ * @param number
+ */
 const getLastNPosts: PostContoller['getLastNPosts'] = async (number: number) => {
   return (await PostModel.find()
     .sort({ date: -1 })
@@ -141,6 +182,9 @@ const getLastNPosts: PostContoller['getLastNPosts'] = async (number: number) => 
     .exec()) as unknown as PostWithAuthor[]
 }
 
+/**
+ * Get all posts
+ */
 const getAllPosts: PostContoller['getAllPosts'] = async () => {
   return (await PostModel.find()
     .sort({ date: 1 })
@@ -148,6 +192,10 @@ const getAllPosts: PostContoller['getAllPosts'] = async () => {
     .exec()) as unknown as PostWithAuthor[]
 }
 
+/**
+ * get all posts that match the filter
+ * @param filter
+ */
 const getFilteredPosts: PostContoller['getFilteredPosts'] = async (filter: PostFilter) => {
   const query = getQueryForFilteredPost(filter)
   return (await PostModel.find(query)
@@ -156,15 +204,25 @@ const getFilteredPosts: PostContoller['getFilteredPosts'] = async (filter: PostF
     .exec()) as unknown as PostWithAuthor[]
 }
 
+/**
+ * Get all authors
+ */
 const getAllAuthors: PostContoller['getAllAuthors'] = async () => {
   const authorIds = await PostModel.find().distinct('author').exec()
   return await UserModel.find({ _id: { $in: authorIds } }).exec()
 }
 
+/**
+ * Get all categories
+ */
 const getAllCategories: PostContoller['getAllCategories'] = async () => {
   return await PostModel.find().distinct('category').exec()
 }
 
+/**
+ * Get query for filtered post
+ * @param filter
+ */
 const getQueryForFilteredPost = (filter: PostFilter) => {
   return Object.fromEntries(
     Object.entries(filter)

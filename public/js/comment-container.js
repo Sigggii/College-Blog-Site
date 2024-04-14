@@ -12,7 +12,6 @@ const handleAddComment = () => {
   const onAddCommentSuccess = () => {
     //reload page to see new comment
     location.reload()
-    console.log('Test')
   }
 
   callAddComment({ content: content }, postId, onAddCommentSuccess)

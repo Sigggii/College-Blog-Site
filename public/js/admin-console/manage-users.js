@@ -1,22 +1,27 @@
 document.addEventListener('DOMContentLoaded', function (event) {
   const value = document.getElementById('user-select').value
   toggleManageUserButtons(value)
+
+  // Add event listener to user select
   document.getElementById('user-select').addEventListener('change', (e) => {
     const value = document.getElementById('user-select').value
     toggleManageUserButtons(value)
   })
 
+  // Add event listener to view user button
   document.getElementById('edit-userinfo-form').addEventListener('submit', (event) => {
     event.preventDefault()
     handeUpdateUserInfo()
   })
 
+  // Add event listener to edit user button
   document.getElementById('edit-user-password-form').addEventListener('submit', (event) => {
     event.preventDefault()
     handleUpdateUserPassword()
   })
 })
 
+// Show or hide manage user buttons based on selected user
 const toggleManageUserButtons = (value) => {
   if (value === '') {
     document.getElementById('manage-user-buttons').classList.add('hidden')
@@ -25,6 +30,7 @@ const toggleManageUserButtons = (value) => {
   }
 }
 
+// open userinfomation container to edit user
 const handleEditUser = () => {
   //Feed inputs with user data
   const userToEdit = JSON.parse(document.getElementById('user-select').value)
@@ -45,6 +51,7 @@ const handleEditUser = () => {
   document.getElementById('update-user-container').scrollIntoView()
 }
 
+// open password container to edit password
 const handleEditPassword = () => {
   const userToEdit = JSON.parse(document.getElementById('user-select').value)
   document.getElementById('edit-password-userId').value = userToEdit._id
@@ -53,6 +60,7 @@ const handleEditPassword = () => {
   document.getElementById('update-user-password-container').scrollIntoView()
 }
 
+// delete user which was selected
 const handleDeleteUser = () => {
   const handleDeleteSuccess = () => {
     //reload page to update page after post was deleted, keep articles section open
@@ -70,6 +78,7 @@ const handleCancelEditPassword = () => {
   document.getElementById('update-user-password-container').classList.add('hidden')
 }
 
+// update user with new data
 const handeUpdateUserInfo = () => {
   const userId = document.getElementById('userId').value
   const editData = {
@@ -87,6 +96,7 @@ const handeUpdateUserInfo = () => {
   callEditUser(userId, editData, handeEditUserSuccess)
 }
 
+// change password of user
 const handleUpdateUserPassword = () => {
   const userId = document.getElementById('edit-password-userId').value
   const password = document.getElementById('update-password-input').value

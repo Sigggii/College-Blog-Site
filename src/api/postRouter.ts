@@ -4,6 +4,7 @@ import { AddComment, CreatePost } from '../controller/types'
 
 export const postRouter = Router()
 
+// endpoint to create post
 postRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
   const post: CreatePost = {
     title: req.body.title,
@@ -20,6 +21,7 @@ postRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
   res.status(201).json({ postId: postId.toJSON() })
 })
 
+// endpoint to update post
 postRouter.put('/:postid', async (req: Request, res: Response, next: NextFunction) => {
   const postId = req.params.postid
   const editData: CreatePost = {
@@ -37,6 +39,7 @@ postRouter.put('/:postid', async (req: Request, res: Response, next: NextFunctio
   res.status(200).end()
 })
 
+// endpoint to delete a post
 postRouter.delete('/:postid', async (req: Request, res: Response, next: NextFunction) => {
   const postId = req.params.postid
   const user = res.locals.user
@@ -44,6 +47,7 @@ postRouter.delete('/:postid', async (req: Request, res: Response, next: NextFunc
   res.status(200).end()
 })
 
+// endpoint create comment for post
 postRouter.post('/:postid/comment', async (req: Request, res: Response, next: NextFunction) => {
   const comment: AddComment = {
     author: res.locals.user.id,
@@ -55,6 +59,7 @@ postRouter.post('/:postid/comment', async (req: Request, res: Response, next: Ne
   res.status(201).end()
 })
 
+// endpoint to update comment
 postRouter.put(
   '/:postid/comment/:commentid',
   async (req: Request, res: Response, next: NextFunction) => {
@@ -66,6 +71,7 @@ postRouter.put(
   },
 )
 
+// endpoint to delete comment
 postRouter.delete(
   '/:postid/comment/:commentid',
   async (req: Request, res: Response, next: NextFunction) => {

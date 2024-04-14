@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   })
 })
 
+// Show or hide manage article buttons based on selected article
 const toggleManageArticleButtons = (value) => {
   if (value === '') {
     document.getElementById('manage-article-buttons').classList.add('hidden')
@@ -15,16 +16,19 @@ const toggleManageArticleButtons = (value) => {
   }
 }
 
+// switch window to post of selected postId
 const handleViewDetailPage = () => {
   const postId = document.getElementById('article-select').value
   window.location.assign(`/posts/${postId}`)
 }
 
+// switch window to edit post of selected postId
 const handleEditPost = () => {
   const postId = document.getElementById('article-select').value
   window.location.assign(`/create-post?postId=${postId}`)
 }
 
+// delete post of selected postId
 const handleDeletePost = () => {
   const handleDeletePostSuccess = () => {
     //reload page to update page after post was deleted, keep articles section open

@@ -5,6 +5,7 @@ import { jwt_identifier } from '../Constants'
 
 export const authRouter = Router()
 
+//signup endpoint
 authRouter.post('/signup', async (req, res, next) => {
   const authUser: SignUpUser = {
     username: req.body.username,
@@ -12,6 +13,7 @@ authRouter.post('/signup', async (req, res, next) => {
     password: req.body.password,
   }
 
+  // First sign up the user and then sign in the user
   const signUpResult = await UserController.signUp(authUser)
   const signInResult = await UserController.signIn(authUser)
 
@@ -24,6 +26,7 @@ authRouter.post('/signup', async (req, res, next) => {
   res.status(200).json({ data: signInResult })
 })
 
+//signin endpoint
 authRouter.post('/signin', async (req, res, next) => {
   const authUser: UserSignIn = {
     email: req.body.email,
@@ -41,6 +44,7 @@ authRouter.post('/signin', async (req, res, next) => {
   res.status(200).json({ data: signInResult })
 })
 
+//signout endpoint
 authRouter.post('/signout', async (req, res, next) => {
   res.status(200).clearCookie(jwt_identifier).json({ test: 'Test' })
 })

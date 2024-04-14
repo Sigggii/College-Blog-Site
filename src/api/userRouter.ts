@@ -3,12 +3,14 @@ import { UserController } from '../controller/userController'
 
 export const userRouter = Router()
 
+// endpoint to delete user
 userRouter.delete('/:userId', async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.params.userId
   await UserController.deleteUser(userId)
   res.status(200).end()
 })
 
+// endpoint to edit user
 userRouter.put('/:userId', async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.params.userId
   const editData = {
@@ -21,6 +23,7 @@ userRouter.put('/:userId', async (req: Request, res: Response, next: NextFunctio
   res.status(200).end()
 })
 
+// endpoint to change password
 userRouter.put(
   '/:userId/change-password',
   async (req: Request, res: Response, next: NextFunction) => {

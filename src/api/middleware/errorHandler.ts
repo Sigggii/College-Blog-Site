@@ -2,12 +2,15 @@ import { Request, Response, NextFunction } from 'express'
 import { BlogSiteError } from './BlogSiteError'
 import { AuthorizationError } from './AuthorizationError'
 
+// Error handler middleware
 const ErrorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
   console.log(err)
+  // If error is of type BlogSiteError, send json error response
   if (err instanceof BlogSiteError) {
     return res
       .status(err.status)
       .json({ type: 'BLOG_SITE_ERROR', name: err.name, message: err.message })
+    // If error is of type AuthorizationError, send json error response
   } else if (err instanceof AuthorizationError) {
     //If request was made over api, send json error else send error page
     if (req.path.startsWith('/api')) {

@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import { Post } from './types'
 
 const Schema = mongoose.Schema
-
+// Define the schema for the Comment model
 export const CommentSchema = new Schema(
   {
     date: {
@@ -25,6 +25,7 @@ export const CommentSchema = new Schema(
 
 export const CommentModel = mongoose.model<Comment>('Comment', CommentSchema)
 
+// Define the schema for the Post model
 export const PostSchema = new Schema({
   date: {
     type: Date,
