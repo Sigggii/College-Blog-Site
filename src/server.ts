@@ -13,6 +13,7 @@ import { Role } from './model/types'
 import { PostModel } from './model/post'
 import { getPageCount, getPostsForGivenPage } from './utils/postUtils'
 import { UserController } from './controller/userController'
+import { AuthorizationError } from './api/middleware/AuthorizationError'
 
 dotenv.config()
 
@@ -58,6 +59,14 @@ app.get('/create-post', async (req: Request, res: Response) => {
     res.render('pages/create-post', { isEdit: false })
   } else {
     const post = await PostController.getPost(postId)
+    //If user not Admin and not Author of Post forbid access
+    if (
+      res.locals.user.role !== Role.ADMIN &&
+      res.locals.user._id.toString() !== post.author._id.toString()
+    ) {
+      throw new AuthorizationError()
+    }
+
     res.render('pages/create-post', { editPost: post, isEdit: true })
   }
 })
