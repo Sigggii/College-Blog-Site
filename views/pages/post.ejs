@@ -3,8 +3,21 @@
 <%- include('../partials/general/head'); %>
 <link href="/stylesheets/post.css" rel="stylesheet">
 <body class="min-h-screen flex flex-col">
+<script src="/js/post.js"></script>
 <%- include('../partials/general/header') %>
 <div class="flex flex-col px-11 py-5 mx-auto w-full bg-white max-w-[800px]">
+    <% if(user && (user.role === 'ADMIN' || user._id.toString() === post.author._id.toString())){ %>
+        <div id="modify-post-buttons" class="flex flex-wrap gap-2 justify-end">
+            <button onclick="handleEditPost('<%= post._id.toString() %>')"
+                     class="w-10 justify-center px-2 py-1.5 text-black bg-primary rounded-lg shadow-sm max-md:px-5 mt-2">
+                <%- include('../partials/icons/pencil') %>
+            </button>
+            <button onclick="handleDeletePost('<%= post._id.toString() %>')"
+                    class="w-10 justify-center px-2 py-1.5 text-white bg-orange-600 rounded-lg shadow-sm max-md:px-5 mt-2">
+                <%- include('../partials/icons/trash') %>
+            </button>
+        </div>
+    <% } %>
     <h1 class="text-3xl text-black">
         <%= post.title %>
     </h1>
@@ -30,7 +43,7 @@
                      src="/assets/message-circle.svg"
                      alt="Comment Icons"/>
             </div>
-            <div class="my-auto text-base text-zinc-600"><%=post.comments.length%></div>
+            <div class="my-auto text-base text-zinc-600"><%= post.comments.length %></div>
         </div>
         <div class="flex gap-2.5 self-start text-base text-zinc-600">
             <div class="grow"><%= post.category %></div>
@@ -40,15 +53,16 @@
     </div>
     <hr class="my-1 shrink-0 h-px bg-primary border border-primary border-solid"/>
     <img loading="lazy"
-         src="<%=post.mainImage%>"
+         src="<%= post.mainImage %>"
          alt="" class="mt-3 w-full aspect-[1.52] rounded-2xl"/>
-    <p class="text-xs"><%=post.mainImage%></p>
+    <p class="text-xs"><%= post.mainImage %></p>
     <p class="mt-7 text-lg text-black">
         <%- post.content %>
     </p>
     <%- include('../partials/post/comments-container-component') %>
 </div>
 <%- include('../partials/general/alert-component') %>
+<%- include('../partials/general/confirm-dialog') %>
 <%- include('../partials/general/footer') %>
 </body>
 </html>
