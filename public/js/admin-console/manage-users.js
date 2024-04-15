@@ -66,8 +66,17 @@ const handleDeleteUser = () => {
     //reload page to update page after post was deleted, keep articles section open
     window.location.assign('/admin-console?section=users')
   }
-  const user = JSON.parse(document.getElementById('user-select').value)
-  callDeleteUser(user._id, handleDeleteSuccess)
+  const deleteUser = () => {
+    const user = JSON.parse(document.getElementById('user-select').value)
+    callDeleteUser(user._id, handleDeleteSuccess)
+  }
+
+  openDialog(
+    'delete',
+    'Delete User',
+    'Are you sure you want to delete this user? All Posts and Comments of this user will be deleted as well',
+    deleteUser,
+  )
 }
 
 const handleCancelEditUser = () => {

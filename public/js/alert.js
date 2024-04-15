@@ -3,11 +3,13 @@ const alertTypeColors = {
   success: 'bg-success',
 }
 
+// Close alert
 const closeAlert = () => {
   document.getElementById('alert').classList.add('hidden')
   document.getElementById('alert').removeEventListener('click', this)
 }
 
+// Open alert
 const openAlert = (title, message, type = 'danger') => {
   document.getElementById('alert-title').textContent = title
   document.getElementById('alert-message').textContent = message

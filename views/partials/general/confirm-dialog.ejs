@@ -1,0 +1,16 @@
+<script src="/js/general/confirm-dialog.js"></script>
+<section id="confirm-dialog" class="hidden fixed z-50 bg-white top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col p-3 rounded-2xl border-primary border-2 border-solid">
+    <span id="confirm-dialog-title" class="text-lg font-bold mr-auto"></span>
+    <span id="confirm-dialog-message" class="text-base mx-auto"></span>
+    <section id="confirm-dialog-buttons-container" class="w-full flex justify-end gap-3 mt-3">
+        <button id="confirm-dialog-cancel-btn"
+                class="text-base text-secondary justify-center px-4 py-1.5 text-white whitespace-nowrap bg-primary rounded-lg shadow-sm max-md:px-5">
+            Cancel
+        </button>
+        <button id="confirm-dialog-confirm-btn"
+                class="text-base justify-center px-4 py-1.5 text-white whitespace-nowrap rounded-lg shadow-sm max-md:px-5">
+            Confirm
+        </button>
+    </section>
+</section>
+<div class="hidden fixed inset-0 bg-gray-700/[0.5] z-40" id="confirm-dialog-overlay"></div>

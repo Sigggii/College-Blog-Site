@@ -35,6 +35,15 @@ const handleDeletePost = () => {
     window.location.assign('/admin-console?section=articles')
   }
 
-  const postId = document.getElementById('article-select').value
-  callDeletePost(postId, handleDeletePostSuccess)
+  const deleteArticle = () => {
+    const postId = document.getElementById('article-select').value
+    callDeletePost(postId, handleDeletePostSuccess)
+  }
+
+  openDialog(
+    'delete',
+    'Delete Article',
+    'Are you sure you want to delete this Article?',
+    deleteArticle,
+  )
 }

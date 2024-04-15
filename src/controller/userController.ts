@@ -85,8 +85,11 @@ const getAllUser: UserController['getAllUsers'] = async () => {
  * @param userId
  */
 const deleteUser: UserController['deleteUser'] = async (userId: string) => {
+  // Delete all Comments of the user before deleting the user
+  console.log(userId)
+  await PostModel.updateMany({}, { $pull: { comments: { author: userId } } }).exec()
   // Delete all Posts of the user before deleting the user
-  await PostModel.deleteMany({ author: userId })
+  await PostModel.deleteMany({ author: userId }).exec()
   await UserModel.findOneAndDelete({ _id: userId }).exec()
 }
 

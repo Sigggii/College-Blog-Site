@@ -7,5 +7,14 @@ const handleDeleteRescentPost = (postId) => {
     //reload page to update page after post was deleted, keep articles section open
     window.location.assign('/admin-console?section=articles')
   }
-  callDeletePost(postId, handleDeletePostSuccess)
+  const deleteArticle = () => {
+    callDeletePost(postId, handleDeletePostSuccess)
+  }
+
+  openDialog(
+    'delete',
+    'Delete Article',
+    'Are you sure you want to delete this Article?',
+    deleteArticle,
+  )
 }
