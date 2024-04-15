@@ -109,6 +109,13 @@ const handeUpdateUserInfo = () => {
 const handleUpdateUserPassword = () => {
   const userId = document.getElementById('edit-password-userId').value
   const password = document.getElementById('update-password-input').value
+  const passwordConfirm = document.getElementById('update-confirm-password-input').value
+
+  // If password doesn't match, return and show error
+  if (password !== passwordConfirm) {
+    openAlert('Error', "Passwords don't match", 'danger')
+    return
+  }
 
   const handleUpdatePasswordSuccess = () => {
     //close container again
