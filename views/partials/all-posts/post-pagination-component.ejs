@@ -1,14 +1,14 @@
 <script src="/js/post-pagination.js"></script>
 <nav class="flex gap-0 items-center self-center mt-6 text-base whitespace-nowrap" aria-label="Pagination">
-    <button onclick="setPageNumber(0)"
-        <%= pageNumber === 1 ? 'disabled' : '' %>
-            class="shrink-0 self-stretch my-auto w-6 aspect-square <%= pageNumber === 1 ? 'invisible' : '' %>">
+    <button onclick="setPageNumber(1)"
+        <%= pageNumber <= 1 ? 'disabled' : '' %>
+            class="shrink-0 self-stretch my-auto w-6 aspect-square <%= pageNumber <= 1 ? 'invisible' : '' %>">
         <img src="/assets/chevron-first.svg"
              alt="First page"/>
     </button>
     <button onclick="setPageNumber(<%= pageNumber - 1 %>)"
-            <%= pageNumber === 1 ? 'disabled' : '' %>
-            class="shrink-0 self-stretch my-auto w-6 aspect-square <%= pageNumber === 1 ? 'invisible' : '' %>">
+            <%= pageNumber <= 1 ? 'disabled' : '' %>
+            class="shrink-0 self-stretch my-auto w-6 aspect-square <%= pageNumber <= 1 ? 'invisible' : '' %>">
         <img src="/assets/chevron-left.svg"
              alt="Previous page"/>
     </button>
@@ -16,14 +16,14 @@
     <input id="page-number" form="<%=submitFormId%>" name="page" readonly value="<%= pageNumber %>" type="text"
            class="focus:outline-none justify-center items-center self-stretch text-center w-8 h-8 bg-white border border-yellow-400 border-solid rounded-[90px] text-sm"/>
     <button onclick="setPageNumber(<%= pageNumber + 1 %>)"
-            <%= pageNumber === pageCount ? 'disabled' : '' %>
-            class="shrink-0 self-stretch my-auto w-6 aspect-square <%= pageNumber === pageCount ? 'invisible' : '' %>">
+            <%= pageNumber >= pageCount ? 'disabled' : '' %>
+            class="shrink-0 self-stretch my-auto w-6 aspect-square <%= pageNumber >= pageCount ? 'invisible' : '' %>">
         <img src="/assets/chevron-right.svg"
              alt="Next page"/>
     </button>
     <button onclick="setPageNumber(<%= pageCount %>)"
-            <%= pageNumber === pageCount ? 'disabled' : '' %>
-            class="shrink-0 self-stretch my-auto w-6 aspect-square <%= pageNumber === pageCount ? 'invisible' : '' %>">
+            <%= pageNumber >= pageCount ? 'disabled' : '' %>
+            class="shrink-0 self-stretch my-auto w-6 aspect-square <%= pageNumber >= pageCount ? 'invisible' : '' %>">
         <img src="/assets/chevron-last.svg"
              alt="Last page"/>
     </button>
